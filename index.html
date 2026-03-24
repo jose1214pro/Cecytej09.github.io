@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CECyTE Jalisco</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Open Sans', sans-serif; background: #fff; }
+
+    /* TOP BAR */
+    .top-bar {
+      background: #fff;
+      border-bottom: 3px solid #f5a623;
+      padding: 10px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-svg {
+      width: 70px;
+      height: 70px;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .logo-cecyte {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      color: #2e7d32;
+      letter-spacing: 1px;
+    }
+
+    .logo-jalisco {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      color: #f5a623;
+    }
+
+    .search-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .search-label {
+      font-size: 14px;
+      color: #555;
+      font-weight: 600;
+    }
+
+    .search-input {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 7px 14px;
+      font-size: 13px;
+      width: 200px;
+      outline: none;
+      color: #888;
+    }
+
+    .search-btn {
+      background: #2e7d32;
+      color: #fff;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .right-area {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .jalisco-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 10px;
+      color: #333;
+      font-weight: 700;
+      text-transform: uppercase;
+      gap: 2px;
+      border-right: 1px solid #ccc;
+      padding-right: 14px;
+    }
+
+    .jalisco-logo svg { width: 36px; height: 36px; }
+
+    .social-icons {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .social-icons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      background: #f0f0f0;
+      color: #333;
+      text-decoration: none;
+      font-size: 16px;
+      transition: background 0.2s;
+    }
+
+    .social-icons a:hover { background: #ddd; }
+
+    /* NAV */
+    nav {
+      background: #fff;
+      border-bottom: 2px solid #e0e0e0;
+      padding: 0 30px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+
+    .home-icon {
+      padding: 12px 12px 12px 0;
+      color: #2e7d32;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .nav-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .nav-item {
+      position: relative;
+      display: inline-block;
+    }
+
+    .nav-item a {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: #333;
+      text-decoration: none;
+      font-weight: 600;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      transition: background 0.15s;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .nav-item a:hover {
+      background: #f5f5f5;
+      border-color: #ddd;
+    }
+
+    .nav-item a .arrow {
+      font-size: 10px;
+      color: #888;
+    }
+
+    .aspirantes-btn a {
+      border: 1px solid #ccc !important;
+    }
+
+    /* HERO / CAROUSEL */
+    .hero {
+      position: relative;
+      background: #009688;
+      overflow: hidden;
+      min-height: 360px;
+    }
+
+    .slide {
+      display: none;
+      position: relative;
+      min-height: 360px;
+    }
+
+    .slide.active { display: block; }
+
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      background: #009688;
+    }
+
+    .slide-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(255,255,255,0.08) 28px, rgba(255,255,255,0.08) 29px),
+        repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(255,255,255,0.08) 28px, rgba(255,255,255,0.08) 29px);
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: flex-end;
+      min-height: 360px;
+      padding: 20px 40px 50px;
+      gap: 20px;
+    }
+
+    .slide-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .slide-logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.9);
+      padding: 6px 12px;
+      border-radius: 4px;
+      width: fit-content;
+    }
+
+    .slide-logo span.sl-cecyte {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      color: #2e7d32;
+    }
+
+    .slide-logo span.sl-jalisco {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      color: #f5a623;
+      font-weight: 600;
+    }
+
+    .inscribete {
+      background: #f5a623;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      padding: 10px 24px;
+      border-radius: 4px;
+      display: inline-block;
+      width: fit-content;
+    }
+
+    .inscribete span { color: #fff; font-weight: 400; font-size: 28px; }
+
+    .slide-center {
+      flex: 0 0 320px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 20px;
+    }
+
+    .students-img {
+      width: 100%;
+      max-width: 320px;
+      height: 280px;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    /* Illustrated students using CSS shapes */
+    .student {
+      position: absolute;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .student-1 { left: 20px; }
+    .student-2 { right: 20px; }
+
+    .student-body {
+      width: 90px;
+      height: 160px;
+      background: #b0bec5;
+      border-radius: 8px 8px 4px 4px;
+      position: relative;
+    }
+
+    .student-head {
+      width: 56px;
+      height: 56px;
+      background: #d4a88a;
+      border-radius: 50%;
+      margin-bottom: -4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .student-2 .student-head { background: #c68a6a; }
+
+    .activity-badge {
+      position: absolute;
+      background: #f5a623;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 8px 14px;
+      border-radius: 6px;
+      text-align: center;
+      line-height: 1.3;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .badge-top { top: 20px; right: 0; }
+    .badge-mid { top: 80px; left: -10px; }
+
+    .unete {
+      position: absolute;
+      bottom: 20px;
+      right: 0;
+      text-align: right;
+    }
+
+    .unete-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.1;
+    }
+
+    .unete-a { font-weight: 400; }
+    .unete-cecyte { color: #f5a623; font-size: 24px; }
+
+    /* Carousel arrows */
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      background: rgba(255,255,255,0.3);
+      border: none;
+      border-radius: 50%;
+      width: 46px;
+      height: 46px;
+      font-size: 22px;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .carousel-arrow:hover { background: rgba(255,255,255,0.5); }
+    .arrow-left { left: 14px; }
+    .arrow-right { right: 14px; }
+
+    /* CAROUSEL CAPTION BAR */
+    .carousel-caption {
+      background: #3a3a3a;
+      color: #fff;
+      text-align: center;
+      padding: 12px 20px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .carousel-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #888;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .dot.active { background: #4caf50; }
+
+    /* Decorative sparkles on slide */
+    .sparkle {
+      position: absolute;
+      color: rgba(255,255,255,0.6);
+      font-size: 18px;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="logo-area">
+    <!-- CECyTE Logo SVG -->
+    <svg class="logo-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="40" cy="40" r="36" fill="none" stroke="#2e7d32" stroke-width="3"/>
+      <ellipse cx="40" cy="40" rx="22" ry="36" fill="none" stroke="#f5a623" stroke-width="2.5" transform="rotate(40 40 40)"/>
+      <ellipse cx="40" cy="40" rx="22" ry="36" fill="none" stroke="#f5a623" stroke-width="2.5" transform="rotate(-40 40 40)"/>
+      <circle cx="40" cy="40" r="7" fill="#2e7d32"/>
+      <circle cx="40" cy="10" r="4" fill="#f5a623"/>
+      <circle cx="40" cy="70" r="4" fill="#f5a623"/>
+    </svg>
+    <div class="logo-text">
+      <span class="logo-cecyte">CECYTE</span>
+      <span class="logo-jalisco">Jalisco</span>
+    </div>
+  </div>
+
+  <div class="search-area">
+    <span class="search-label">Buscador</span>
+    <input class="search-input" type="text" placeholder="🔍  Explorar Contenic"/>
+    <button class="search-btn">Buscar</button>
+  </div>
+
+  <div class="right-area">
+    <div class="jalisco-logo">
+      <!-- Jalisco flower logo simplified -->
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="6" fill="#2e7d32"/>
+        <ellipse cx="20" cy="8" rx="4" ry="6" fill="#2e7d32" opacity="0.85"/>
+        <ellipse cx="20" cy="32" rx="4" ry="6" fill="#2e7d32" opacity="0.85"/>
+        <ellipse cx="8" cy="20" rx="6" ry="4" fill="#2e7d32" opacity="0.85"/>
+        <ellipse cx="32" cy="20" rx="6" ry="4" fill="#2e7d32" opacity="0.85"/>
+        <ellipse cx="11" cy="11" rx="4" ry="6" fill="#2e7d32" opacity="0.7" transform="rotate(-45 11 11)"/>
+        <ellipse cx="29" cy="11" rx="4" ry="6" fill="#2e7d32" opacity="0.7" transform="rotate(45 29 11)"/>
+        <ellipse cx="11" cy="29" rx="4" ry="6" fill="#2e7d32" opacity="0.7" transform="rotate(45 11 29)"/>
+        <ellipse cx="29" cy="29" rx="4" ry="6" fill="#2e7d32" opacity="0.7" transform="rotate(-45 29 29)"/>
+      </svg>
+      <div style="text-align:center; font-size:9px; line-height:1.2; color:#555; font-family:'Montserrat',sans-serif;">
+        <div style="font-size:7px;">GOBIERNO DE</div>
+        <div style="font-weight:800; letter-spacing:0.5px;">AL ESTILO</div>
+        <div style="font-style:italic; font-weight:700; font-size:11px; color:#333;">Jalisco</div>
+      </div>
+    </div>
+    <div class="social-icons">
+      <!-- Facebook -->
+      <a href="#" title="Facebook">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="#1877f2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+      <!-- YouTube -->
+      <a href="#" title="YouTube">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="#ff0000"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#fff"/></svg>
+      </a>
+      <!-- X/Twitter -->
+      <a href="#" title="X">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="#000"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L2.37 2.25H8.08l4.258 5.63 5.906-5.63Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <!-- Instagram -->
+      <a href="#" title="Instagram">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#c13584" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <span class="home-icon">🏠</span>
+  <div class="nav-items">
+    <div class="nav-item"><a href="#">Acerca de <span class="arrow">▾</span></a></div>
+    <div class="nav-item"><a href="#">Oferta Académica <span class="arrow">▾</span></a></div>
+    <div class="nav-item"><a href="#">Alumnos <span class="arrow">▾</span></a></div>
+    <div class="nav-item"><a href="#">Vinculación <span class="arrow">▾</span></a></div>
+    <div class="nav-item"><a href="#">Plataformas <span class="arrow">▾</span></a></div>
+    <div class="nav-item"><a href="#">Transparencia <span class="arrow">▾</span></a></div>
+    <div class="nav-item"><a href="#">Prensa <span class="arrow">▾</span></a></div>
+  </div>
+  <div class="nav-items" style="margin-top:0; padding: 4px 0;">
+    <div class="nav-item aspirantes-btn"><a href="#">Aspirantes</a></div>
+  </div>
+</nav>
+
+<!-- HERO CAROUSEL -->
+<div class="hero" id="carousel">
+
+  <!-- Slide 1: Bolsa de Trabajo -->
+  <div class="slide active" id="slide-1">
+    <div class="slide-bg"></div>
+    <!-- Sparkles -->
+    <span class="sparkle" style="top:15%;left:38%">✦</span>
+    <span class="sparkle" style="top:40%;left:44%">✦</span>
+    <span class="sparkle" style="top:25%;left:55%">✧</span>
+    <span class="sparkle" style="top:10%;left:60%">✦</span>
+
+    <div class="slide-content">
+      <div class="slide-left">
+        <div class="slide-logo">
+          <svg viewBox="0 0 40 40" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="18" fill="none" stroke="#2e7d32" stroke-width="2"/>
+            <ellipse cx="20" cy="20" rx="11" ry="18" fill="none" stroke="#f5a623" stroke-width="1.5" transform="rotate(40 20 20)"/>
+            <ellipse cx="20" cy="20" rx="11" ry="18" fill="none" stroke="#f5a623" stroke-width="1.5" transform="rotate(-40 20 20)"/>
+            <circle cx="20" cy="20" r="4" fill="#2e7d32"/>
+          </svg>
+          <div>
+            <span class="sl-cecyte">CECYTE</span><br>
+            <span class="sl-jalisco">Jalisco</span>
+          </div>
+        </div>
+        <div>
+          <span class="inscribete"><b>Inscríbete</b> <span>aquí</span></span>
+        </div>
+      </div>
+
+      <div class="slide-center">
+        <!-- Activity badges -->
+        <div class="activity-badge badge-mid" style="position:relative;top:auto;left:auto;margin-bottom:10px;">Actividades<br>deportivas y<br>culturales</div>
+
+        <!-- Two illustrated students -->
+        <div style="display:flex; gap:10px; align-items:flex-end; position:relative;">
+          <!-- Student 1 - male with backpack -->
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div style="width:50px;height:50px;background:#c68b6a;border-radius:50%;position:relative;z-index:1;"></div>
+            <div style="width:80px;height:140px;background:#90a4ae;border-radius:8px 8px 4px 4px;position:relative;">
+              <!-- backpack hint -->
+              <div style="position:absolute;right:-14px;top:20px;width:22px;height:30px;background:#795548;border-radius:4px;"></div>
+              <!-- logo on jacket -->
+              <div style="position:absolute;left:50%;top:10px;transform:translateX(-50%);width:20px;height:20px;">
+                <svg viewBox="0 0 20 20" width="20" height="20"><circle cx="10" cy="10" r="9" fill="none" stroke="#fff" stroke-width="1.5"/><circle cx="10" cy="10" r="3" fill="#fff"/></svg>
+              </div>
+            </div>
+          </div>
+          <!-- Student 2 - female -->
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div style="width:52px;height:52px;background:#d4a88a;border-radius:50%;position:relative;z-index:1;">
+              <!-- hair -->
+              <div style="position:absolute;top:-2px;left:4px;right:4px;height:24px;background:#5d4037;border-radius:50% 50% 0 0;"></div>
+            </div>
+            <div style="width:82px;height:140px;background:#90a4ae;border-radius:8px 8px 4px 4px;">
+              <div style="position:absolute;left:50%;top:10px;transform:translateX(-50%);width:20px;height:20px;margin-top:10px;margin-left:-10px;">
+                <svg viewBox="0 0 20 20" width="20" height="20"><circle cx="10" cy="10" r="9" fill="none" stroke="#fff" stroke-width="1.5"/><circle cx="10" cy="10" r="3" fill="#fff"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activity badge top-right -->
+          <div class="activity-badge" style="position:absolute;top:-60px;right:-30px;background:#f5a623;">Actividades<br>tecnológicas</div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end;padding-bottom:20px;gap:12px;flex:0 0 160px;">
+        <div class="activity-badge" style="position:relative;background:#f5a623;text-align:right;">Bolsa de<br>trabajo</div>
+        <div class="unete" style="position:relative;bottom:auto;right:auto;">
+          <div class="unete-text">
+            <span class="unete-a">ÚNETE A</span><br>
+            <span class="unete-cecyte">CECYTE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 2 -->
+  <div class="slide" id="slide-2">
+    <div class="slide-bg" style="background:#1b5e20;"></div>
+    <div class="slide-content" style="align-items:center;justify-content:center;flex-direction:column;gap:20px;">
+      <div style="color:#fff;font-family:'Montserrat',sans-serif;font-size:36px;font-weight:800;text-align:center;">Oferta Académica</div>
+      <div style="color:#f5a623;font-family:'Open Sans',sans-serif;font-size:18px;text-align:center;">Descubre nuestros bachilleratos tecnológicos</div>
+    </div>
+  </div>
+
+  <!-- Slide 3 -->
+  <div class="slide" id="slide-3">
+    <div class="slide-bg" style="background:#004d40;"></div>
+    <div class="slide-content" style="align-items:center;justify-content:center;flex-direction:column;gap:20px;">
+      <div style="color:#fff;font-family:'Montserrat',sans-serif;font-size:36px;font-weight:800;text-align:center;">Vinculación Empresarial</div>
+      <div style="color:#f5a623;font-family:'Open Sans',sans-serif;font-size:18px;text-align:center;">Conectamos talento con oportunidades</div>
+    </div>
+  </div>
+
+  <!-- Carousel arrows -->
+  <button class="carousel-arrow arrow-left" onclick="changeSlide(-1)">&#8249;</button>
+  <button class="carousel-arrow arrow-right" onclick="changeSlide(1)">&#8250;</button>
+</div>
+
+<!-- CAPTION BAR -->
+<div class="carousel-caption">
+  <span id="caption-text">Bolsa de trabajo</span>
+  <div class="carousel-dots">
+    <div class="dot active" onclick="goToSlide(0)"></div>
+    <div class="dot" onclick="goToSlide(1)"></div>
+    <div class="dot" onclick="goToSlide(2)"></div>
+  </div>
+</div>
+
+<section class="info-cards-section">
+  <div class="cards-container">
+    <div class="info-card">
+      <div class="card-icon">📚</div>
+      <h3>Historia</h3>
+      <p>Conoce la trayectoria de nuestra institución desde su fundación en Jalisco, formando líderes técnicos.</p>
+      <a href="#historia" class="card-link">Ver más</a>
+    </div>
+    <div class="info-card">
+      <div class="card-icon">🎯</div>
+      <h3>Misión</h3>
+      <p>Impartir educación bivalente de calidad que permita a los jóvenes integrarse al sector productivo.</p>
+      <a href="#" class="card-link">Ver más</a>
+    </div>
+    <div class="info-card">
+      <div class="card-icon">👁️</div>
+      <h3>Visión</h3>
+      <p>Ser la institución de educación media superior líder en formación tecnológica y valores humanos.</p>
+      <a href="#" class="card-link">Ver más</a>
+    </div>
+  </div>
+</section>
+
+<section id="historia" class="timeline-section">
+  <h2 class="section-title">Nuestra Historia</h2>
+  <p class="section-subtitle">Un camino de excelencia académica en el estado de Jalisco.</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">1991</div>
+      <div class="timeline-content">
+        <h4>Fundación Nacional</h4>
+        <p>Se crean los Colegios de Estudios Científicos y Tecnológicos (CECyTE) a nivel federal para impulsar la educación técnica.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">1996</div>
+      <div class="timeline-content">
+        <h4>Llegada a Jalisco</h4>
+        <p>Inician las operaciones de los primeros planteles en el estado, brindando nuevas oportunidades a jóvenes jaliscienses.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Actualidad</div>
+      <div class="timeline-content">
+        <h4>Liderazgo Tecnológico</h4>
+        <p>Contamos con múltiples planteles en todo el estado, destacando en robótica, innovación y vinculación empresarial.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Estilos para las Tarjetas */
+  .info-cards-section {
+    padding: 60px 30px;
+    background: #f9f9f9;
+  }
+  .cards-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+  }
+  .info-card {
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+    border-top: 5px solid #2e7d32;
+  }
+  .info-card:hover { transform: translateY(-10px); }
+  .card-icon { font-size: 40px; margin-bottom: 20px; }
+  .info-card h3 { font-family: 'Montserrat', sans-serif; color: #2e7d32; margin-bottom: 15px; }
+  .info-card p { color: #666; font-size: 14px; line-height: 1.6; margin-bottom: 20px; }
+  .card-link { color: #f5a623; font-weight: 700; text-decoration: none; font-size: 14px; text-transform: uppercase; }
+
+  /* Estilos para la Línea del Tiempo */
+  .timeline-section { padding: 80px 30px; max-width: 900px; margin: 0 auto; }
+  .section-title { text-align: center; font-family: 'Montserrat', sans-serif; font-size: 32px; color: #333; margin-bottom: 10px; }
+  .section-subtitle { text-align: center; color: #888; margin-bottom: 50px; }
+
+  .timeline { position: relative; border-left: 3px solid #f5a623; margin-left: 20px; padding-left: 40px; }
+  .timeline-item { position: relative; margin-bottom: 40px; }
+  .timeline-dot { 
+    position: absolute; left: -48px; top: 0; 
+    width: 14px; height: 14px; background: #2e7d32; 
+    border: 3px solid #fff; border-radius: 50%; box-shadow: 0 0 0 3px #2e7d32;
+  }
+  .timeline-date { 
+    font-family: 'Montserrat', sans-serif; font-weight: 800; 
+    color: #f5a623; font-size: 18px; margin-bottom: 5px; 
+  }
+  .timeline-content h4 { font-family: 'Montserrat', sans-serif; color: #333; margin-bottom: 8px; }
+  .timeline-content p { color: #555; font-size: 15px; line-height: 1.5; }
+</style>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+  const captions = ['Bolsa de trabajo', 'Oferta Académica', 'Vinculación Empresarial'];
+  let current = 0;
+  let timer;
+
+  function showSlide(n) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    document.getElementById('caption-text').textContent = captions[current];
+  }
+
+  function changeSlide(dir) {
+    showSlide(current + dir);
+    resetTimer();
+  }
+
+  function goToSlide(n) {
+    showSlide(n);
+    resetTimer();
+  }
+
+  function resetTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => changeSlide(1), 4000);
+  }
+
+  timer = setInterval(() => changeSlide(1), 4000);
+</script>
+</body>
+</html>
