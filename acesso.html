@@ -292,6 +292,73 @@
 .suggestion-item:hover { background: #f5f5f5; color: #2e7d32; }
 .suggestion-item i { font-size: 12px; color: #aaa; }
 .suggestion-item:last-child { border-bottom: none; }
+
+/* Contenedor principal del contenido */
+.blog-wrapper {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* Estructura de la Tarjeta */
+.card-item {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.card-image {
+  flex: 0 0 350px; /* Ancho fijo para la imagen */
+  height: 230px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-text {
+  flex: 1;
+}
+
+.card-text h2 {
+  font-family: 'Montserrat', sans-serif;
+  color: #2e7d32;
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.card-text p {
+  font-family: 'Open Sans', sans-serif;
+  line-height: 1.6;
+  color: #444;
+}
+
+/* Franja Verde Delgada (Divisor) */
+.green-line-divider {
+  height: 2px; /* Panel delgado */
+  background-color: #2e7d32;
+  width: 100%;
+  margin: 30px 0;
+  border: none;
+}
+
+/* Ajuste para celulares */
+@media (max-width: 768px) {
+  .card-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  .card-image {
+    flex: none;
+    width: 100%;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -370,172 +437,33 @@
   </div>
 </nav>
 
-<div class="hero" id="carousel">
-  <div class="slide active" id="slide-1">
-    <div class="hero-banner">
-      <div style="position:relative; z-index:5;">
-        <div class="historia-ribbon">La historia de CECyTEJ</div>
-      </div>
-      <div class="hero-right">
-        <div class="orange-blob"></div>
-        <img src="Banner_2.png" alt="Estudiantes CECyTE" class="students-png">
-        <div class="handwritten-text text-orgullo">Orgullo de la<br>región</div>
-        <div class="handwritten-text text-tecnologia">Actividades<br>tecnológicas</div>
-        <div class="handwritten-text text-trabajo">Bolsa de<br>trabajo</div>
-        <div class="unete-paper">
-          <span class="unete-a">ÚNETE A</span>
-          <span class="unete-cecyte">CECYTE</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="slide" id="slide-2">
-    <div class="slide-bg" style="background: linear-gradient(135deg, #1b5e20, #2e7d32);"></div>
-    <div class="shape-circle"></div>
-    <div class="shape-blob"></div>
-    <div class="slide-content-center">
-      <div class="slide-title">Oferta Académica</div>
-      <div class="slide-subtitle">Bachilleratos Tecnológicos y Profesionales Técnicos</div>
-      <img src="ruta-imagen-oferta.png" alt="Oferta Académica" class="slide-extra-img">
-    </div>
-  </div>
-  <div class="slide" id="slide-3">
-    <div class="slide-bg" style="background: linear-gradient(135deg, #004d40, #00695c);"></div>
-    <div class="shape-circle" style="left:auto; right:-100px; background:rgba(245,166,35,0.1);"></div>
-    <div class="shape-blob" style="background:rgba(255,255,255,0.05); filter:none;"></div>
-    <div class="slide-content-center">
-      <div class="slide-title">Vinculación</div>
-      <div class="slide-subtitle">Conectando talento con el sector productivo</div>
-      <img src="ruta-imagen-vinculacion.png" alt="Vinculación" class="slide-extra-img">
-    </div>
-  </div>
-  <button class="carousel-arrow arrow-left" onclick="changeSlide(-1)">&#8249;</button>
-  <button class="carousel-arrow arrow-right" onclick="changeSlide(1)">&#8250;</button>
-</div>
+<main class="blog-wrapper">
 
-<div class="carousel-caption">
-  <span id="caption-text">La historia de CECyTEJ</span>
-  <div class="carousel-dots">
-    <div class="dot active" onclick="goToSlide(0)"></div>
-    <div class="dot" onclick="goToSlide(1)"></div>
-    <div class="dot" onclick="goToSlide(2)"></div>
-  </div>
-</div>
+  <section class="card-item">
+    <div class="card-image">
+      <img src="tu-imagen-1.jpg" alt="Descripción">
+    </div>
+    <div class="card-text">
+      <h2>Título del Subtema</h2>
+      <p>Aquí va la descripción del subtema. Puedes poner todo el texto que necesites y se ajustará automáticamente al lado de la foto.</p>
+    </div>
+  </section>
 
-<section class="collage-section" id="zona-tarjetas">
-  <h2 class="collage-title">Vida Estudiantil</h2>
-  <p class="collage-subtitle">Formación integral, tecnología y valores en nuestra comunidad jalisciense.</p>
-  
-  <div class="collage-grid">
-    <div class="collage-item tall">
-      <img src="ruta-imagen-graduaciones.png" alt="Graduaciones" class="img-placeholder">
-      <div class="overlay-vignette"></div>
-      <div class="collage-label">Ceremonia de Graduación</div>
-    </div>
-    <div class="collage-item nth-orange">
-      <img src="ruta-imagen-robotica.png" alt="Robótica" class="img-placeholder">
-      <div class="overlay-vignette"></div>
-      <div class="collage-label">Club de Robótica</div>
-    </div>
-    <div class="collage-item">
-      <img src="logo_cecytej25_horizontal.png" alt="Deportes" class="img-placeholder">
-      <div class="overlay-vignette"></div>
-      <div class="collage-label">Actividades Deportivas</div>
-    </div>
-    <div class="collage-item nth-orange">
-      <img src="ruta-imagen-cultura.png" alt="Cultura" class="img-placeholder">
-      <div class="overlay-vignette"></div>
-      <div class="collage-label">Talleres Culturales</div>
-    </div>
-    <div class="collage-item wide">
-      <img src="ruta-imagen-laboratorio.png" alt="Laboratorios" class="img-placeholder">
-      <div class="overlay-vignette"></div>
-      <div class="collage-label">Laboratorio de Tecnología</div>
-    </div>
-    <div class="collage-item nth-orange">
-      <img src="ruta-imagen-ciencias.png" alt="Ciencias" class="img-placeholder">
-      <div class="overlay-vignette"></div>
-      <div class="collage-label">Laboratorio de Ciencia</div>
-    </div>
-  </div>
-</section>
+  <hr class="green-line-divider">
 
-<section class="historia-section">
-  <div class="historia-inner">
-    <div class="historia-card">
-      <img src="ruta-imagen-historia1.png" alt="CECyTE Jalisco Historia" class="img-placeholder">
-      <div class="overlay-vignette"></div>
-      <div class="historia-content-over">
-        <div class="historia-card-title">CECyTE Jalisco</div>
-        <div class="historia-badge">+30 años<br>de excelencia</div>
-      </div>
+  <section class="card-item">
+    <div class="card-image">
+      <img src="tu-imagen-2.jpg" alt="Descripción">
     </div>
-    <div class="historia-text">
-      <h2 class="section-title">Nuestra <span>Historia</span></h2>
-      <p>El Colegio de Estudios Científicos y Tecnológicos del Estado de Jalisco (CECyTEJ) nació con la firme convicción de ofrecer una alternativa educativa de calidad que combinara el bachillerato general con carreras técnicas pertinentes para el desarrollo del estado.</p>
-      <p>Desde la apertura de nuestros primeros planteles, hemos sido un pilar en la formación de jóvenes profesionales, impulsando la innovación, la tecnología y el compromiso social en cada rincón de Jalisco.</p>
+    <div class="card-text">
+      <h2>Siguiente Título</h2>
+      <p>Descripción de la siguiente sección. Este bloque lo puedes copiar y pegar cuantas veces quieras.</p>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="timeline-section">
-  <div class="timeline-container">
-    <h2 class="timeline-title">Cómo se fundó <span>CECyTEJ</span></h2>
-    <div class="timeline">
-      
-      <div class="timeline-item">
-        <div class="timeline-date">1996</div>
-        <div class="timeline-content">
-          <h4>Creación del Decreto</h4>
-          <p>Se firma el decreto oficial que da vida al Colegio de Estudios Científicos y Tecnológicos del Estado de Jalisco, naciendo como una nueva opción educativa de educación media superior.</p>
-        </div>
-      </div>
+  <hr class="green-line-divider">
 
-      <div class="timeline-item">
-        <div class="timeline-date">1997</div>
-        <div class="timeline-content">
-          <h4>Primeros Planteles</h4>
-          <p>Abren sus puertas de manera oficial los primeros planteles en el estado, comenzando con la formación de las primeras generaciones de bachilleres técnicos.</p>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-date">2010</div>
-        <div class="timeline-content">
-          <h4>Expansión Estatal</h4>
-          <p>El modelo educativo se consolida expandiéndose estratégicamente a múltiples municipios de Jalisco para dar cobertura a la demanda tecnológica.</p>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-date">Actualidad</div>
-        <div class="timeline-content">
-          <h4>Vanguardia y Excelencia</h4>
-          <p>Hoy en día, CECyTE Jalisco es un referente en competencias de robótica, educación dual e inserción laboral, preparando a los líderes del mañana.</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section class="historia-section gray-bg">
-  <div class="historia-inner">
-    <div class="historia-text">
-      <h2 class="section-title">Visión <span>Hacia el Futuro</span></h2>
-      <p>Continuamos expandiendo nuestra oferta educativa e integrando nuevas tecnologías en nuestras aulas para asegurar que nuestros estudiantes estén preparados para los retos del mañana.</p>
-      <p>Nuestro modelo académico se actualiza constantemente para estar a la vanguardia de la industria, garantizando una excelente inserción laboral y académica para todos nuestros egresados.</p>
-    </div>
-    <div class="historia-card">
-      <img src="ruta-imagen-futuro.png" alt="Visión CECyTE Jalisco" class="img-placeholder">
-      <div class="overlay-vignette"></div>
-      <div class="historia-content-over">
-        <div class="historia-card-title">Innovación</div>
-        <div class="historia-badge">Mirando al futuro</div>
-      </div>
-    </div>
-  </div>
-</section>
+</main>
 
 <footer class="main-footer">
   <div class="footer-top-schedule">
