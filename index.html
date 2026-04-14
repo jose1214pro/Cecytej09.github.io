@@ -156,7 +156,13 @@
     .collage-item.pop-active { transform: scale(1.1) !important; z-index: 20; transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     .collage-item.tall { grid-row: span 2; min-height: 465px; }
     .collage-item.wide { grid-column: span 2; }
-    .img-placeholder { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.85; z-index: 1; transition: opacity 0.3s, transform 0.5s; object-fit: contain; background-color: #fff; }
+    
+    .img-placeholder { 
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+      opacity: 0.85; z-index: 1; transition: opacity 0.3s, transform 0.5s; 
+      object-fit: cover;  /* ← cambia contain por cover */
+      background-color: #fff; 
+    }
     .collage-item:hover .img-placeholder { opacity: 1; transform: scale(1.05); }
     .overlay-vignette { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%); z-index: 2; pointer-events: none; }
     .collage-label { position: absolute; bottom: 0; left: 0; right: 0; background: #2e7d32; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; padding: 15px 20px; text-align: center; z-index: 3; text-transform: uppercase; letter-spacing: 1px; pointer-events: none;}
@@ -317,7 +323,7 @@
     <div class="search-btn-container">
       <button class="search-btn">Buscar</button>
       <div class="sign-language-panel">
-        <video src="video.mp4" autoplay loop muted playsinline pointer-events="none"></video>
+        <video src="/cecytejimages/rodolfoescribe.mp4" autoplay loop muted playsinline pointer-events="none"></video>
       </div>
     </div>
   </div>
@@ -428,32 +434,32 @@
   
   <div class="collage-grid">
     <div class="collage-item tall">
-      <img src="ruta-imagen-graduaciones.png" alt="Graduaciones" class="img-placeholder">
+      <img src="/cecytejimages/graduaciones.jpg" alt="Graduaciones" class="img-placeholder">
       <div class="overlay-vignette"></div>
       <div class="collage-label">Ceremonia de Graduación</div>
     </div>
     <div class="collage-item nth-orange">
-      <img src="robotica.jpeg" alt="Robótica" class="img-placeholder">
+      <img src="/cecytejimages/robotica.jpeg" alt="Robótica" class="img-placeholder">
       <div class="overlay-vignette"></div>
       <div class="collage-label">Club de Robótica</div>
     </div>
     <div class="collage-item">
-      <img src="logo_cecytej25_horizontal.png" alt="Deportes" class="img-placeholder">
+      <img src="/cecytejimages/deportes.jpeg" alt="Deportes" class="img-placeholder">
       <div class="overlay-vignette"></div>
       <div class="collage-label">Actividades Deportivas</div>
     </div>
     <div class="collage-item nth-orange">
-      <img src="ruta-imagen-cultura.png" alt="Cultura" class="img-placeholder">
+      <img src="/cecytejimages/talleres.jpeg" alt="Cultura" class="img-placeholder">
       <div class="overlay-vignette"></div>
       <div class="collage-label">Talleres Culturales</div>
     </div>
     <div class="collage-item wide">
-      <img src="ruta-imagen-laboratorio.png" alt="Laboratorios" class="img-placeholder">
+      <img src="/cecytejimages/computo.jpeg" alt="Laboratorios" class="img-placeholder">
       <div class="overlay-vignette"></div>
       <div class="collage-label">Laboratorio de Tecnología</div>
     </div>
     <div class="collage-item nth-orange">
-      <img src="ruta-imagen-ciencias.png" alt="Ciencias" class="img-placeholder">
+      <img src="/cecytejimages/laboratorio.jpeg" alt="Ciencias" class="img-placeholder">
       <div class="overlay-vignette"></div>
       <div class="collage-label">Laboratorio de Ciencia</div>
     </div>
