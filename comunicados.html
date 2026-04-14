@@ -276,18 +276,18 @@
       color: #c0143c;
     }
 
-    /* Cuerpo de la tarjeta: fotos + descripción */
+/* Cuerpo de la tarjeta: fotos + descripción */
     .candidata-body {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0;
+      align-items: start;
     }
 
     /* Galería de 3 fotos */
     .candidata-gallery {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: 200px 200px;
       gap: 3px;
       padding: 3px;
     }
@@ -308,19 +308,21 @@
     }
 
     .photo-frame {
-      width: 100%; height: 100%;
+      width: 100%;
       position: relative;
       overflow: hidden;
+      background: #f5f5f5;
     }
     .photo-frame img {
-      width: 100%; height: 100%;
-      object-fit: cover;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
       display: block;
       transition: transform 0.4s ease;
     }
     .photo-frame:hover img { transform: scale(1.05); }
 
-    /* Borde automático de color por candidata (usando ::after en .photo-frame) */
+    /* Borde automático de color por candidata */
     .candidata-card[data-n="1"] .photo-frame { outline: 3px solid #2e7d32; outline-offset: -3px; border-radius: inherit; }
     .candidata-card[data-n="2"] .photo-frame { outline: 3px solid #f08200; outline-offset: -3px; border-radius: inherit; }
     .candidata-card[data-n="3"] .photo-frame { outline: 3px solid #8e24aa; outline-offset: -3px; border-radius: inherit; }
@@ -333,6 +335,19 @@
     .candidata-card[data-n="3"] .candidata-numero { background: #8e24aa; }
     .candidata-card[data-n="4"] .candidata-numero { background: #0277bd; }
     .candidata-card[data-n="5"] .candidata-numero { background: #c0392b; }
+
+    /* Fondo de color en la galería donde no hay imagen */
+    .candidata-card[data-n="1"] .candidata-gallery { background: #2e7d32; }
+    .candidata-card[data-n="2"] .candidata-gallery { background: #f08200; }
+    .candidata-card[data-n="3"] .candidata-gallery { background: #8e24aa; }
+    .candidata-card[data-n="4"] .candidata-gallery { background: #0277bd; }
+    .candidata-card[data-n="5"] .candidata-gallery { background: #c0392b; }
+
+    .candidata-card[data-n="1"] .photo-frame { background: #2e7d32; }
+    .candidata-card[data-n="2"] .photo-frame { background: #f08200; }
+    .candidata-card[data-n="3"] .photo-frame { background: #8e24aa; }
+    .candidata-card[data-n="4"] .photo-frame { background: #0277bd; }
+    .candidata-card[data-n="5"] .photo-frame { background: #c0392b; }
 
     /* Descripción de la candidata */
     .candidata-desc {
@@ -388,7 +403,6 @@
     .candidata-card[data-n="3"] .desc-tag { background: #f3e5f5; color: #6a1b9a; }
     .candidata-card[data-n="4"] .desc-tag { background: #e3f2fd; color: #01579b; }
     .candidata-card[data-n="5"] .desc-tag { background: #ffebee; color: #b71c1c; }
-
     /* Divisor entre tarjetas */
     .card-divider {
       height: 3px;
@@ -790,7 +804,7 @@
           <img src="/cecytejimages/diane2.jpeg" alt="Foto 2 candidata 5">
         </div>
         <div class="photo-small photo-frame">
-          <img src="" alt="Foto 3 candidata 5">
+          <img src="cecytejimages/ariasdiane.jpeg" alt="Foto 3 candidata 5">
         </div>
       </div>
       <div class="candidata-desc">
