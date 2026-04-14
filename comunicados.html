@@ -10,15 +10,12 @@
   
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
-    html { scroll-behavior: smooth; } /* Desplazamiento suave para los enlaces */
+    html { scroll-behavior: smooth; }
     body, a, button, input { cursor: none !important; }
     body { font-family: 'Open Sans', sans-serif; background: #fff; color: #333; overflow-x: hidden; }
 
-    /* FRANJA VERDE SUPERIOR */
     .top-green-stripe { height: 6px; background-color: #2e7d32; width: 100%; }
 
-    /* Efecto Temblor (Shake) con Doble Clic */
     @keyframes shake-page {
       0% { transform: translate(0, 0) rotate(0deg); }
       25% { transform: translate(-4px, 3px) rotate(-1deg); }
@@ -26,11 +23,8 @@
       75% { transform: translate(-4px, -3px) rotate(-1deg); }
       100% { transform: translate(0, 0) rotate(0deg); }
     }
-    .is-shaking {
-      animation: shake-page 0.15s ease-in-out;
-    }
+    .is-shaking { animation: shake-page 0.15s ease-in-out; }
 
-    /* Estilos del cursor dinámico */
     .custom-cursor {
       position: fixed; top: 0; left: 0; width: 35px; height: 35px;
       border: 2px solid #a1a1a1; border-radius: 50%; pointer-events: none; z-index: 99999;
@@ -46,7 +40,6 @@
       width: 15px; height: 15px; border-color: #f5a623; background: rgba(245, 166, 35, 0.4);
     }
 
-    /* TOP BAR - Distribuido con el logo en medio */
     .top-bar { 
       background: #fff; border-bottom: 3px solid #f5a623; padding: 10px 30px; 
       display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; 
@@ -57,7 +50,6 @@
     .main-logo-link:active { border-color: #2e7d32; background-color: rgba(46, 125, 50, 0.05); }
     .main-logo-link img { height: 60px; width: auto; object-fit: contain; display: block; }
 
-    /* REFINING SEARCH AREA */
     .search-area-wrapper { display: flex; align-items: center; gap: 15px; flex: 1; justify-content: center; max-width: 550px; position: relative; margin: 0 20px;}
     .search-label-outside { font-size: 14px; color: #555; font-weight: 600; font-family: 'Open Sans', sans-serif; }
     .search-box { display: flex; align-items: center; border: 1px solid #ccc; border-radius: 5px; padding: 6px 12px; background: #fff; flex: 1; }
@@ -68,15 +60,12 @@
     .search-btn { background: #2e7d32; color: #fff; border: none; padding: 9px 22px; border-radius: 5px; font-size: 13px; font-weight: 700; font-family: 'Montserrat', sans-serif; transition: background 0.2s; cursor: none; }
     .search-btn:hover { background: #1b5e20; }
 
-    /* SIGN LANGUAGE VIDEO PANEL ON HOVER */
     .sign-language-panel { position: absolute; top: calc(100% + 15px); right: 0; width: 250px; height: 180px; border-radius: 15px; overflow: hidden; background: #000; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 4px solid #f5a623; opacity: 0; transform: translateY(10px); transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0.3s; visibility: hidden; z-index: 100; pointer-events: none; }
     .search-btn-container:hover .sign-language-panel { opacity: 1; transform: translateY(0); visibility: visible; transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s; }
     .sign-language-panel video { width: 100%; height: 100%; object-fit: cover; }
 
-    /* Logo Gobierno (Segundo de arriba, entre buscador y redes) */
     .logo-jalisco-top { height: 50px; width: auto; object-fit: contain; margin-right: 20px; }
 
-    /* Redes Sociales */
     .social-icons { display: flex; gap: 12px; align-items: center; }
     .social-icons a { 
       display: flex; align-items: center; justify-content: center; 
@@ -86,7 +75,6 @@
     .social-icons a:hover { transform: translateY(-3px); background: #e4e4e4; color: #444; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-color: #bbb; }
     .svg-icon { width: 14px; height: 14px; fill: currentColor; }
 
-    /* NAV & DROPDOWN (POR CLIC) */
     nav { background: #fff; border-bottom: 2px solid #e0e0e0; padding: 0 30px; display: flex; align-items: center; flex-wrap: wrap; justify-content: center;}
     .home-icon { padding: 12px 15px; color: #555; font-size: 18px; text-decoration: none; transition: color 0.2s; }
     .home-icon:hover, .home-icon:active { color: #2e7d32; }
@@ -98,8 +86,6 @@
     .nav-item > a .arrow { font-size: 10px; opacity: 0.5; transition: transform 0.2s; }
     
     .dropdown { display: none; position: absolute; top: 100%; left: 0; background: #fff; box-shadow: 0 8px 16px rgba(0,0,0,0.15); border: 1px solid #ddd; z-index: 150; flex-direction: column; min-width: 220px; border-radius: 0 0 5px 5px; overflow: hidden;}
-    
-    /* Clase que se activa por JS al dar clic */
     .dropdown.show { display: flex; animation: fadeIn 0.3s ease; }
     .nav-item.active-menu > a .arrow { transform: rotate(180deg); }
 
@@ -108,126 +94,374 @@
     .dropdown a:last-child { border-bottom: none; }
     .dropdown a:hover { background: #f9f9f9; color: #2e7d32; font-weight: 600; padding-left: 25px; }
 
-    /* HERO / CAROUSEL ORIGINAL */
-    .hero { position: relative; overflow: hidden; min-height: 480px; background: #249d8b; width: 100%;}
-    .slide { display: block; position: absolute; inset: 0; min-height: 480px; width: 100%; overflow: hidden; opacity: 0; transition: opacity 1.5s ease-in-out; z-index: 1; }
-    .slide.active { opacity: 1; z-index: 2; }
-    
-    .hero::before { content: ''; position: absolute; inset: 0; z-index: 3; pointer-events: none; background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 30px 30px; }
-    .hero-banner { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; overflow: hidden; z-index: 4;}
-    .historia-ribbon { position: relative; background-color: #f08200; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 42px; font-weight: 900; padding: 15px 40px; transform: rotate(-2deg); box-shadow: 5px 8px 20px rgba(0,0,0,0.3); border-radius: 4px; display: inline-block; text-transform: uppercase; letter-spacing: 1px; }
-    .hero-right { position: absolute; right: 0; bottom: 0; width: 60%; height: 100%; z-index: 2; display: flex; justify-content: flex-end; align-items: flex-end; overflow: hidden;}
-    .orange-blob { position: absolute; bottom: -30px; right: 40px; width: 620px; height: 430px; background-color: #f08200; border-radius: 40px 40px 0 0; transform: rotate(2deg); z-index: 1; box-shadow: inset 0 0 50px rgba(0,0,0,0.1); }
-    
-    .students-png { position: relative; z-index: 3; max-height: 90%; max-width: 100%; object-fit: contain; margin-right: 70px; filter: drop-shadow(5px 5px 15px rgba(0,0,0,0.3)); transform: rotate(15deg); }
-    .handwritten-text { position: absolute; font-family: 'Kalam', cursive; color: #fff; font-size: 24px; line-height: 1.1; z-index: 4; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-    .text-orgullo { top: 250px; left: -100px; transform: rotate(-5deg); }
-    .text-tecnologia { top: 70px; left: 200px; transform: rotate(-5deg); }
-    .text-trabajo { top: 130px; right: 30px; transform: rotate(8deg); }
-    .unete-paper { position: absolute; bottom: 30px; right: 20px; background: #fff; padding: 12px 25px; transform: rotate(-3deg); z-index: 4; box-shadow: 3px 5px 15px rgba(0,0,0,0.2); text-align: right; border-radius: 2px; }
-    .unete-paper .unete-a { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700; color: #555; display: block; line-height: 1; }
-    .unete-paper .unete-cecyte { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 900; color: #f08200; display: block; letter-spacing: 1px;}
-    
-    .slide-bg { position: absolute; inset: 0; z-index: 0; }
-    .shape-circle { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.1); z-index: 1; width: 350px; height: 350px; top: -100px; left: -100px; }
-    .shape-blob { position: absolute; background: rgba(245, 166, 35, 0.8); z-index: 1; border-radius: 50%; width: 500px; height: 500px; bottom: -150px; right: -100px; filter: blur(20px);}
-    .slide-content-center { position: relative; z-index: 4; height: 100%; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 20px; padding: 0 100px;}
-    .slide-title { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 56px; font-weight: 900; text-align: center; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-    .slide-subtitle { color: #fff; font-family: 'Open Sans', sans-serif; font-size: 24px; font-weight: 600; text-align: center; background: rgba(0,0,0,0.3); padding: 8px 30px; border-radius: 30px; }
-    .slide-extra-img { max-height: 220px; object-fit: contain; margin-top: 15px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3)); border-radius: 10px;}
-
-    .carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; background: rgba(255,255,255,0.2); border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 30px; color: #fff; display: flex; align-items: center; justify-content: center; transition: background 0.3s; }
-    .carousel-arrow:hover { background: rgba(255,255,255,0.4); }
-    .arrow-left { left: 20px; }
-    .arrow-right { right: 20px; }
-    .carousel-caption { background: #f4f4f4; color: #333; text-align: center; padding: 15px 20px; font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700; display: flex; flex-direction: column; align-items: center; gap: 10px; border-bottom: 1px solid #e0e0e0; }
-    .carousel-dots { display: flex; gap: 10px; }
-    .dot { width: 12px; height: 12px; border-radius: 50%; background: #ccc; transition: all 0.3s; cursor: none; }
-    .dot.active { background: #2e7d32; transform: scale(1.2); box-shadow: 0 0 5px rgba(46,125,50,0.5); }
-
-    /* COLLAGE ORIGINAL (CON ID PARA ENLACE) */
-    .collage-section { padding: 100px 30px; background: #fff; }
-    .collage-title { text-align: center; font-family: 'Montserrat', sans-serif; font-size: 36px; font-weight: 900; color: #2e7d32; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;}
-    .collage-subtitle { text-align: center; color: #777; margin-bottom: 60px; font-size: 18px; max-width: 600px; margin-left: auto; margin-right: auto;}
-    .collage-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: auto auto; gap: 25px; }
-    .collage-item { border-radius: 15px; overflow: hidden; position: relative; background: #fff; min-height: 220px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 20px rgba(0,0,0,0.05); border: 2px solid #eee; transition: all 0.4s ease; }
-    .collage-item:hover { transform: translateY(-8px); box-shadow: 0 0 35px 10px rgba(245, 166, 35, 0.85); border-color: #f5a623; z-index: 10; }
-    .collage-item.nth-orange:hover { border-color: #2e7d32; box-shadow: 0 0 35px 10px rgba(46, 125, 50, 0.85); }
-    .collage-item.pop-active { transform: scale(1.1) !important; z-index: 20; transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    .collage-item.tall { grid-row: span 2; min-height: 465px; }
-    .collage-item.wide { grid-column: span 2; }
-    .img-placeholder { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.85; z-index: 1; transition: opacity 0.3s, transform 0.5s; object-fit: contain; background-color: #fff; }
-    .collage-item:hover .img-placeholder { opacity: 1; transform: scale(1.05); }
-    .overlay-vignette { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%); z-index: 2; pointer-events: none; }
-    .collage-label { position: absolute; bottom: 0; left: 0; right: 0; background: #2e7d32; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; padding: 15px 20px; text-align: center; z-index: 3; text-transform: uppercase; letter-spacing: 1px; pointer-events: none;}
-    .collage-item.nth-orange .collage-label { background: #f08200; }
-
-    /* LÍNEA DEL TIEMPO (Fundación) */
-    .timeline-section { padding: 80px 30px; background: #fcfcfc; border-top: 1px solid #eee; }
-    .timeline-container { max-width: 800px; margin: 0 auto; }
-    .timeline-title { text-align: center; font-family: 'Montserrat', sans-serif; font-size: 32px; font-weight: 900; color: #333; margin-bottom: 50px; text-transform: uppercase; }
-    .timeline-title span { color: #f08200; }
-    .timeline { position: relative; border-left: 4px solid #2e7d32; margin-left: 20px; padding-left: 30px; }
-    .timeline-item { position: relative; margin-bottom: 40px; }
-    .timeline-item:last-child { margin-bottom: 0; }
-    .timeline-item::before { 
-      content: ''; position: absolute; left: -41px; top: 0; width: 18px; height: 18px; 
-      background: #fff; border: 4px solid #f08200; border-radius: 50%; z-index: 2; 
+    /* ===== BARRA ÚLTIMA HORA ===== */
+    .breaking-bar {
+      background: #c0392b;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      height: 42px;
+      position: relative;
+      z-index: 50;
     }
-    .timeline-date { font-weight: 900; color: #2e7d32; font-family: 'Montserrat', sans-serif; font-size: 20px; margin-bottom: 8px; }
-    .timeline-content { 
-      background: #fff; padding: 20px 25px; border-radius: 8px; border: 1px solid #e0e0e0; 
-      box-shadow: 0 10px 20px rgba(0,0,0,0.05); position: relative;
+    .breaking-label {
+      background: #8b0000;
+      padding: 0 20px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      white-space: nowrap;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      z-index: 2;
     }
-    .timeline-content::before {
-      content: ''; position: absolute; top: 8px; left: -8px; width: 15px; height: 15px; 
-      background: #fff; border-left: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0; 
-      transform: rotate(45deg);
+    .breaking-label .dot-live {
+      width: 8px; height: 8px; border-radius: 50%; background: #ff4444;
+      animation: blink-dot 1s infinite;
+      display: inline-block;
     }
-    .timeline-content h4 { font-family: 'Montserrat', sans-serif; font-size: 16px; margin-bottom: 5px; color: #444; }
-    .timeline-content p { font-size: 14px; color: #666; line-height: 1.6; }
+    @keyframes blink-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+    .breaking-ticker-wrapper {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+    .breaking-ticker {
+      display: flex;
+      white-space: nowrap;
+      animation: ticker-scroll 30s linear infinite;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      gap: 80px;
+    }
+    @keyframes ticker-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .breaking-ticker span { display: inline-flex; align-items: center; gap: 12px; }
+    .breaking-ticker span::before { content: '◆'; font-size: 8px; opacity: 0.7; }
 
-    /* SECCIONES DE HISTORIA */
-    .historia-section { padding: 80px 30px; background: #fff; color: #333; overflow: hidden; border-top: 1px solid #eee;}
-    .historia-section.gray-bg { background: #f4f4f4; border-top: none;}
-    .historia-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-    
-    .historia-card { border-radius: 15px; overflow: hidden; background: #fff; min-height: 450px; display: flex; align-items: center; justify-content: center; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.08); border: 1px solid #eee; }
-    .historia-card .overlay-vignette { background: linear-gradient(135deg, rgba(46,125,50,0.3) 0%, rgba(0,0,0,0.7) 100%); }
-    .historia-card .img-placeholder { object-fit: cover; }
-    .historia-content-over { position: relative; z-index: 3; text-align: center; color: #fff; padding: 40px; }
-    .historia-card-title { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; text-shadow: 0 2px 4px rgba(0,0,0,0.3);}
-    .historia-badge { background: #f08200; color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 18px; padding: 15px 25px; border-radius: 8px; line-height: 1.3; box-shadow: 0 5px 15px rgba(0,0,0,0.2); margin-top: 20px; display: inline-block; }
-    .historia-text .section-title { text-align: left; font-size: 42px; margin-bottom: 20px; font-family: 'Montserrat', sans-serif; font-weight: 900; color: #333; text-transform: uppercase;}
-    .historia-text .section-title span { color: #2e7d32; }
-    .historia-text p { color: #666; font-size: 17px; line-height: 1.8; margin-bottom: 20px; font-weight: 400;}
+    /* ===== CONTENIDO PRINCIPAL ===== */
+    .page-header {
+      text-align: center;
+      padding: 60px 30px 30px;
+    }
+    .page-header h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 38px;
+      font-weight: 900;
+      color: #2e7d32;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    .page-header p {
+      font-size: 17px;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
 
-    /* FOOTER OSCURO */
+    /* ===== TARJETAS DE CANDIDATAS ===== */
+    .candidatas-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 30px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+    }
+
+    .candidata-card {
+      background: #fff;
+      border-radius: 16px;
+      border: 2px solid #e8e8e8;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+      overflow: hidden;
+      transition: box-shadow 0.3s ease;
+    }
+    .candidata-card:hover {
+      box-shadow: 0 12px 40px rgba(46,125,50,0.15);
+    }
+
+    /* Cabecera de la tarjeta */
+    .candidata-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 25px 30px 20px;
+      border-bottom: 2px solid #f0f0f0;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .candidata-info { display: flex; align-items: center; gap: 20px; }
+    .candidata-numero {
+      width: 55px; height: 55px; border-radius: 50%;
+      background: #2e7d32; color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22px; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .candidata-nombre {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22px; font-weight: 800;
+      color: #222;
+    }
+    .candidata-plantel {
+      font-size: 13px; color: #888;
+      margin-top: 3px;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    /* Botón de votación */
+    .vote-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border: 2px solid #e0e0e0;
+      border-radius: 50px;
+      padding: 10px 22px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #888;
+      transition: all 0.3s ease;
+      cursor: none !important;
+      flex-shrink: 0;
+    }
+    .vote-btn .heart-icon {
+      font-size: 20px;
+      transition: transform 0.3s ease;
+    }
+    .vote-btn:hover {
+      border-color: #e0245e;
+      color: #e0245e;
+    }
+    .vote-btn:hover .heart-icon { transform: scale(1.2); }
+    .vote-btn.voted {
+      background: #fff0f5;
+      border-color: #e0245e;
+      color: #e0245e;
+    }
+    .vote-btn.voted .heart-icon { animation: heart-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    @keyframes heart-pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.5); }
+      100% { transform: scale(1); }
+    }
+    .vote-count {
+      background: #f5f5f5;
+      border-radius: 20px;
+      padding: 2px 10px;
+      font-size: 13px;
+      font-weight: 700;
+      min-width: 28px;
+      text-align: center;
+      transition: background 0.3s;
+    }
+    .vote-btn.voted .vote-count {
+      background: #fce4ec;
+      color: #c0143c;
+    }
+
+    /* Cuerpo de la tarjeta: fotos + descripción */
+    .candidata-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    /* Galería de 3 fotos */
+    .candidata-gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 200px 200px;
+      gap: 3px;
+      padding: 3px;
+    }
+    .candidata-gallery .photo-main {
+      grid-row: span 2;
+      border-radius: 10px 0 0 10px;
+      overflow: hidden;
+    }
+    .candidata-gallery .photo-small {
+      border-radius: 0;
+      overflow: hidden;
+    }
+    .candidata-gallery .photo-small:last-child {
+      border-radius: 0 0 10px 0;
+    }
+    .candidata-gallery .photo-small:nth-child(2) {
+      border-radius: 0 10px 0 0;
+    }
+
+    .photo-frame {
+      width: 100%; height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    .photo-frame img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .photo-frame:hover img { transform: scale(1.05); }
+
+    /* Borde automático de color por candidata (usando ::after en .photo-frame) */
+    .candidata-card[data-n="1"] .photo-frame { outline: 3px solid #2e7d32; outline-offset: -3px; border-radius: inherit; }
+    .candidata-card[data-n="2"] .photo-frame { outline: 3px solid #f08200; outline-offset: -3px; border-radius: inherit; }
+    .candidata-card[data-n="3"] .photo-frame { outline: 3px solid #8e24aa; outline-offset: -3px; border-radius: inherit; }
+    .candidata-card[data-n="4"] .photo-frame { outline: 3px solid #0277bd; outline-offset: -3px; border-radius: inherit; }
+    .candidata-card[data-n="5"] .photo-frame { outline: 3px solid #c0392b; outline-offset: -3px; border-radius: inherit; }
+
+    /* Color del número por candidata */
+    .candidata-card[data-n="1"] .candidata-numero { background: #2e7d32; }
+    .candidata-card[data-n="2"] .candidata-numero { background: #f08200; }
+    .candidata-card[data-n="3"] .candidata-numero { background: #8e24aa; }
+    .candidata-card[data-n="4"] .candidata-numero { background: #0277bd; }
+    .candidata-card[data-n="5"] .candidata-numero { background: #c0392b; }
+
+    /* Descripción de la candidata */
+    .candidata-desc {
+      padding: 30px 30px 30px 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+    }
+    .candidata-desc h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      color: #333;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .candidata-desc p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.75;
+    }
+    .desc-dato {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: #666;
+      font-family: 'Open Sans', sans-serif;
+    }
+    .desc-dato i {
+      margin-top: 2px;
+      flex-shrink: 0;
+      font-size: 13px;
+    }
+    .candidata-card[data-n="1"] .desc-dato i { color: #2e7d32; }
+    .candidata-card[data-n="2"] .desc-dato i { color: #f08200; }
+    .candidata-card[data-n="3"] .desc-dato i { color: #8e24aa; }
+    .candidata-card[data-n="4"] .desc-dato i { color: #0277bd; }
+    .candidata-card[data-n="5"] .desc-dato i { color: #c0392b; }
+
+    .desc-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: 'Montserrat', sans-serif;
+      margin: 2px 4px 2px 0;
+    }
+    .candidata-card[data-n="1"] .desc-tag { background: #e8f5e9; color: #2e7d32; }
+    .candidata-card[data-n="2"] .desc-tag { background: #fff3e0; color: #e65100; }
+    .candidata-card[data-n="3"] .desc-tag { background: #f3e5f5; color: #6a1b9a; }
+    .candidata-card[data-n="4"] .desc-tag { background: #e3f2fd; color: #01579b; }
+    .candidata-card[data-n="5"] .desc-tag { background: #ffebee; color: #b71c1c; }
+
+    /* Divisor entre tarjetas */
+    .card-divider {
+      height: 3px;
+      border: none;
+      background: linear-gradient(to right, transparent, #e0e0e0, transparent);
+    }
+
+    /* Marcador de votos global */
+    .vote-scoreboard {
+      max-width: 1100px;
+      margin: 0 auto 60px;
+      padding: 0 30px;
+    }
+    .scoreboard-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22px;
+      font-weight: 900;
+      color: #333;
+      text-align: center;
+      margin-bottom: 25px;
+      text-transform: uppercase;
+    }
+    .scoreboard-bars { display: flex; flex-direction: column; gap: 14px; }
+    .score-row { display: flex; align-items: center; gap: 14px; }
+    .score-name { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; min-width: 160px; color: #444; }
+    .score-bar-bg { flex: 1; background: #f0f0f0; border-radius: 30px; height: 18px; overflow: hidden; }
+    .score-bar-fill { height: 100%; border-radius: 30px; transition: width 0.6s ease; min-width: 4px; }
+    .score-num { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 900; min-width: 30px; text-align: right; }
+
+    /* Colores de barras */
+    .candidata-card[data-n="1"] ~ * .fill-1,
+    .fill-1 { background: #2e7d32; }
+    .fill-2 { background: #f08200; }
+    .fill-3 { background: #8e24aa; }
+    .fill-4 { background: #0277bd; }
+    .fill-5 { background: #c0392b; }
+
+    /* Estilos para las sugerencias del buscador */
+    .search-suggestions {
+      position: absolute; top: 100%; left: -400px; width: 500px;
+      background: #fff; border: 1px solid #ccc; border-top: none;
+      border-radius: 0 0 8px 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      z-index: 200; display: none; max-height: 250px; overflow-y: auto;
+    }
+    .suggestion-item {
+      padding: 12px 20px; font-size: 14px; color: #444; cursor: pointer;
+      border-bottom: 1px solid #f0f0f0; transition: background 0.2s;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .suggestion-item:hover { background: #f5f5f5; color: #2e7d32; }
+    .suggestion-item i { font-size: 12px; color: #aaa; }
+    .suggestion-item:last-child { border-bottom: none; }
+
+    /* FOOTER */
     .main-footer { background: #415058; color: #fff; font-family: 'Open Sans', sans-serif; position: relative; overflow: hidden; padding-top: 20px; }
     .footer-top-schedule { border-top: 1px solid rgba(255,255,255,0.2); border-bottom: 1px solid rgba(255,255,255,0.2); text-align: center; padding: 15px 20px; font-size: 14px; margin-bottom: 30px; margin-left: 5%; margin-right: 5%; }
     .footer-columns { display: grid; grid-template-columns: 1fr 2fr 1.5fr 1fr; gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 30px 40px 30px; align-items: start; }
     .footer-col { display: flex; flex-direction: column; }
-    
     .footer-col-1 { align-items: flex-start; gap: 15px; }
     .footer-logo { max-width: 140px; filter: brightness(0) invert(1); }
     .footer-socials { display: flex; gap: 8px; }
     .footer-socials a { background: #fff; color: #415058; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 4px; text-decoration: none; font-size: 14px; }
     .footer-access-icon { font-size: 40px; margin-top: 20px; border: 2px solid #fff; border-radius: 50%; padding: 10px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;}
-    
     .footer-col-2 h3 { color: #f08200; font-family: 'Montserrat', sans-serif; font-size: 18px; margin-bottom: 15px; font-weight: 800; line-height: 1.3;}
     .footer-col-2 p { font-size: 13px; line-height: 1.6; margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start;}
     .footer-col-2 i { color: #8bb18d; margin-top: 3px; }
     .btn-escribenos { background: #f08200; color: #fff; text-decoration: none; font-weight: bold; padding: 12px; border-radius: 5px; text-align: center; font-size: 14px; margin-top: 15px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: fit-content; }
-    
     .footer-col-3 { gap: 15px; margin-top: 40px;}
     .footer-col-3 a { color: #fff; text-decoration: none; font-size: 14px; font-weight: 700; }
-    
     .footer-col-4 { align-items: center; text-align: center; gap: 15px;}
     .gov-logo { max-width: 100px; filter: brightness(0) invert(1);}
     .access-badge { max-width: 80px; }
     .footer-copyright { font-size: 12px; font-weight: bold; margin-top: 10px;}
-
-    /* Barra inferior (Layer8 + Reloj) */
     .footer-bottom { background: rgba(0,0,0,0.3); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
     .footer-bottom-info { font-size: 13px; font-family: 'Open Sans', sans-serif; }
     .footer-bottom-info span { font-weight: bold; font-family: 'Montserrat', sans-serif;}
@@ -235,130 +469,25 @@
     .footer-credits span { color: #f08200; font-weight: 900; }
 
     /* Responsive */
-    @media (max-width: 1024px) {
-      .orange-blob { width: 500px; height: 350px; }
-      .students-png { max-height: 340px; margin-right: 40px; }
-      .collage-grid { grid-template-columns: repeat(2, 1fr); }
-      .collage-item.tall { grid-row: span 1; min-height: 250px; }
-      .collage-item.wide { grid-column: span 1; }
-      .footer-columns { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 900px) {
+      .candidata-body { grid-template-columns: 1fr; }
+      .candidata-gallery { grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 180px; }
+      .candidata-gallery .photo-main { grid-row: span 1; border-radius: 10px 0 0 10px; }
+      .candidata-gallery .photo-small:nth-child(2) { border-radius: 0; }
+      .candidata-gallery .photo-small:last-child { border-radius: 0 10px 10px 0; }
+      .score-name { min-width: 110px; }
     }
     @media (max-width: 768px) {
       .top-bar { padding: 10px; justify-content: center; gap: 15px; flex-direction: column;}
       .logo-jalisco-top { margin-right: 0; }
       .search-area-wrapper { width: 100%; margin: 10px 0;}
-      .historia-inner { grid-template-columns: 1fr !important; gap: 40px; }
-      .hero-banner { flex-direction: column; justify-content: center; text-align: center; padding-top: 40px;}
-      .hero-right { width: 100%; position: relative; height: 200px; margin-top: 20px;}
-      .orange-blob { width: 100%; right: 0; bottom: 0; height: 180px; border-radius: 20px 20px 0 0;}
-      .students-png { max-height: 170px; margin-right: auto; margin-left: auto; display: block;}
       .footer-columns { grid-template-columns: 1fr; text-align: center;}
       .footer-col-1, .footer-col-2 p { align-items: center; justify-content: center;}
       .btn-escribenos { margin: 15px auto;}
       .footer-bottom { justify-content: center; text-align: center;}
+      .candidata-gallery { height: 200px; }
+      .candidata-header { flex-direction: column; align-items: flex-start; }
     }
-
-    /* ESTILOS PARA LAS SUGERENCIAS DEL BUSCADOR */
-.search-btn-container { position: relative; } /* Asegura el posicionamiento */
-
-.search-suggestions {
-  position: absolute;
-  top: 100%;
-  left: -400px; /* Alineado con el inicio del buscador */
-  width: 500px;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-top: none;
-  border-radius: 0 0 8px 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  z-index: 200;
-  display: none; /* Oculto por defecto */
-  max-height: 250px;
-  overflow-y: auto;
-}
-
-.suggestion-item {
-  padding: 12px 20px;
-  font-size: 14px;
-  color: #444;
-  cursor: pointer;
-  border-bottom: 1px solid #f0f0f0;
-  transition: background 0.2s;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.suggestion-item:hover { background: #f5f5f5; color: #2e7d32; }
-.suggestion-item i { font-size: 12px; color: #aaa; }
-.suggestion-item:last-child { border-bottom: none; }
-
-/* Contenedor principal del contenido */
-.blog-wrapper {
-  max-width: 1000px;
-  margin: 40px auto;
-  padding: 0 20px;
-}
-
-/* Estructura de la Tarjeta */
-.card-item {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  margin-bottom: 20px;
-}
-
-.card-image {
-  flex: 0 0 350px; /* Ancho fijo para la imagen */
-  height: 230px;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.card-text {
-  flex: 1;
-}
-
-.card-text h2 {
-  font-family: 'Montserrat', sans-serif;
-  color: #2e7d32;
-  margin-bottom: 10px;
-  font-size: 24px;
-}
-
-.card-text p {
-  font-family: 'Open Sans', sans-serif;
-  line-height: 1.6;
-  color: #444;
-}
-
-/* Franja Verde Delgada (Divisor) */
-.green-line-divider {
-  height: 2px; /* Panel delgado */
-  background-color: #2e7d32;
-  width: 100%;
-  margin: 30px 0;
-  border: none;
-}
-
-/* Ajuste para celulares */
-@media (max-width: 768px) {
-  .card-item {
-    flex-direction: column;
-    text-align: center;
-  }
-  .card-image {
-    flex: none;
-    width: 100%;
-  }
-}
-
   </style>
 </head>
 <body>
@@ -368,13 +497,13 @@
 <div class="custom-cursor" id="customCursor"></div>
 <div class="custom-cursor-dot" id="customCursorDot"></div>
 
+<!-- TOP BAR -->
 <div class="top-bar">
   <div class="logo-area-left">
     <a href="index.html" class="main-logo-link">
       <img src="LogoCecytej.png" alt="CECyTE Jalisco">
     </a>
   </div>
-  
   <div class="search-area-wrapper">
     <span class="search-label-outside">Buscador</span>
     <div class="search-box">
@@ -384,25 +513,24 @@
     <div class="search-btn-container">
       <button class="search-btn">Buscar</button>
       <div class="sign-language-panel">
-        <video src="/cecytejimages/rodolfoescribe.mp4" autoplay loop muted playsinline pointer-events="none"></video>
+        <video src="/cecytejimages/rodolfoescribe.mp4" autoplay loop muted playsinline></video>
       </div>
     </div>
   </div>
-
   <img src="Jalisco.png" alt="Gobierno de Jalisco" class="logo-jalisco-top">
-
   <div class="social-icons">
-    <a href="#" class="fb" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-    <a href="#" class="yt" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-    <a href="#" class="x" title="X">
+    <a href="#" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+    <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+    <a href="#" title="X">
       <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
         <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.6 318.1 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/>
       </svg>
     </a>
-    <a href="#" class="ig" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
   </div>
 </div>
 
+<!-- NAV -->
 <nav>
   <a href="index.html" class="home-icon" title="Inicio"><i class="fas fa-home"></i></a>
   <div class="nav-items">
@@ -437,84 +565,297 @@
   </div>
 </nav>
 
-
-<main class="blog-wrapper">
-
-  <section class="card-item">
-    <div class="card-image">
-      <img src="tu-imagen-1.jpg" alt="Descripción">
+<!-- ===== BARRA ÚLTIMA HORA ===== -->
+<div class="breaking-bar">
+  <div class="breaking-label">
+    <span class="dot-live"></span>
+    Última hora · Sala de prensa
+  </div>
+  <div class="breaking-ticker-wrapper">
+    <div class="breaking-ticker" id="breakingTicker">
+      <span>Convocatoria oficial para elección de reina CECyTE Jalisco 2026 ya está abierta</span>
+      <span>Las votaciones estarán disponibles para toda la comunidad estudiantil</span>
+      <span>Participa y apoya a tu candidata favorita con tu voto</span>
+      <span>La coronación se realizará en el Plantel Valle de Juárez</span>
+      <span>Convocatoria oficial para elección de reina CECyTE Jalisco 2026 ya está abierta</span>
+      <span>Las votaciones estarán disponibles para toda la comunidad estudiantil</span>
+      <span>Participa y apoya a tu candidata favorita con tu voto</span>
+      <span>La coronación se realizará en el Plantel Valle de Juárez</span>
     </div>
-    <div class="card-text">
-      <h2>Título del Subtema</h2>
-      <p>Aquí va la descripción del subtema. Puedes poner todo el texto que necesites y se ajustará automáticamente al lado de la foto.</p>
+  </div>
+</div>
+
+<!-- ===== ENCABEZADO ===== -->
+<div class="page-header">
+  <h1>Candidatas 2026</h1>
+  <p>Conoce a las representantes del Plantel Valle de Juárez y apoya a tu favorita con un corazón. ¡Tu voto cuenta!</p>
+</div>
+
+<!-- ===== TARJETAS DE CANDIDATAS ===== -->
+<div class="candidatas-wrapper">
+
+  <!-- CANDIDATA 1 -->
+  <div class="candidata-card" data-n="1" id="card-1">
+    <div class="candidata-header">
+      <div class="candidata-info">
+        <div class="candidata-numero">1</div>
+        <div>
+          <div class="candidata-nombre">Nombre Candidata 1</div>
+          <div class="candidata-plantel"><i class="fas fa-map-marker-alt"></i> CECyTE Jalisco — Plantel Valle de Juárez</div>
+        </div>
+      </div>
+      <button class="vote-btn" id="btn-1" onclick="toggleVote(1)">
+        <span class="heart-icon" id="heart-1">🤍</span>
+        <span>Votar</span>
+        <span class="vote-count" id="count-1">0</span>
+      </button>
     </div>
-  </section>
-
-  <hr class="green-line-divider">
-
-  <section class="card-item">
-    <div class="card-image">
-      <img src="tu-imagen-2.jpg" alt="Descripción">
+    <div class="candidata-body">
+      <div class="candidata-gallery">
+        <div class="photo-main photo-frame">
+          <img src="" alt="Foto principal candidata 1">
+          <!-- src="ruta/foto1-principal.jpg" -->
+        </div>
+        <div class="photo-small photo-frame">
+          <img src="" alt="Foto 2 candidata 1">
+          <!-- src="ruta/foto1-b.jpg" -->
+        </div>
+        <div class="photo-small photo-frame">
+          <img src="" alt="Foto 3 candidata 1">
+          <!-- src="ruta/foto1-c.jpg" -->
+        </div>
+      </div>
+      <div class="candidata-desc">
+        <h3>Sobre la candidata</h3>
+        <p>Descripción de la candidata número 1. Aquí puedes escribir su trayectoria, valores, propuestas y todo lo que la hace especial para representar al Plantel Valle de Juárez en este evento.</p>
+        <div class="desc-dato"><i class="fas fa-graduation-cap"></i><span>Grupo: 2°A</span></div>
+        <div class="desc-dato"><i class="fas fa-school"></i><span>CECyTE Jalisco — Plantel Valle de Juárez · 2026</span></div>
+        <div style="margin-top: 8px;">
+          <span class="desc-tag">Liderazgo</span>
+          <span class="desc-tag">Cultura</span>
+          <span class="desc-tag">Comunidad</span>
+        </div>
+      </div>
     </div>
-    <div class="card-text">
-      <h2>Siguiente Título</h2>
-      <p>Descripción de la siguiente sección. Este bloque lo puedes copiar y pegar cuantas veces quieras.</p>
+  </div>
+
+  <!-- CANDIDATA 2 -->
+  <div class="candidata-card" data-n="2" id="card-2">
+    <div class="candidata-header">
+      <div class="candidata-info">
+        <div class="candidata-numero">2</div>
+        <div>
+          <div class="candidata-nombre">Nombre Candidata 2</div>
+          <div class="candidata-plantel"><i class="fas fa-map-marker-alt"></i> CECyTE Jalisco — Plantel Valle de Juárez</div>
+        </div>
+      </div>
+      <button class="vote-btn" id="btn-2" onclick="toggleVote(2)">
+        <span class="heart-icon" id="heart-2">🤍</span>
+        <span>Votar</span>
+        <span class="vote-count" id="count-2">0</span>
+      </button>
     </div>
-  </section>
+    <div class="candidata-body">
+      <div class="candidata-gallery">
+        <div class="photo-main photo-frame">
+          <img src="" alt="Foto principal candidata 2">
+        </div>
+        <div class="photo-small photo-frame">
+          <img src="" alt="Foto 2 candidata 2">
+        </div>
+        <div class="photo-small photo-frame">
+          <img src="" alt="Foto 3 candidata 2">
+        </div>
+      </div>
+      <div class="candidata-desc">
+        <h3>Sobre la candidata</h3>
+        <p>Descripción de la candidata número 2. Escribe aquí su historia, sus metas, sus logros y el mensaje que tiene para la comunidad estudiantil del Plantel Valle de Juárez.</p>
+        <div class="desc-dato"><i class="fas fa-graduation-cap"></i><span>Grupo: 2°B</span></div>
+        <div class="desc-dato"><i class="fas fa-school"></i><span>CECyTE Jalisco — Plantel Valle de Juárez · 2026</span></div>
+        <div style="margin-top: 8px;">
+          <span class="desc-tag">Arte</span>
+          <span class="desc-tag">Emprendimiento</span>
+          <span class="desc-tag">Comunidad</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <hr class="green-line-divider">
+  <!-- CANDIDATA 3 -->
+  <div class="candidata-card" data-n="3" id="card-3">
+    <div class="candidata-header">
+      <div class="candidata-info">
+        <div class="candidata-numero">3</div>
+        <div>
+          <div class="candidata-nombre">Nombre Candidata 3</div>
+          <div class="candidata-plantel"><i class="fas fa-map-marker-alt"></i> CECyTE Jalisco — Plantel Valle de Juárez</div>
+        </div>
+      </div>
+      <button class="vote-btn" id="btn-3" onclick="toggleVote(3)">
+        <span class="heart-icon" id="heart-3">🤍</span>
+        <span>Votar</span>
+        <span class="vote-count" id="count-3">0</span>
+      </button>
+    </div>
+    <div class="candidata-body">
+      <div class="candidata-gallery">
+        <div class="photo-main photo-frame">
+          <img src="" alt="Foto principal candidata 3">
+        </div>
+        <div class="photo-small photo-frame">
+          <img src="" alt="Foto 2 candidata 3">
+        </div>
+        <div class="photo-small photo-frame">
+          <img src="" alt="Foto 3 candidata 3">
+        </div>
+      </div>
+      <div class="candidata-desc">
+        <h3>Sobre la candidata</h3>
+        <p>Descripción de la candidata número 3. Aquí puedes destacar sus actividades, su participación en proyectos escolares y su compromiso con la comunidad del Plantel Valle de Juárez.</p>
+        <div class="desc-dato"><i class="fas fa-graduation-cap"></i><span>Grupo: 4°A</span></div>
+        <div class="desc-dato"><i class="fas fa-school"></i><span>CECyTE Jalisco — Plantel Valle de Juárez · 2026</span></div>
+        <div style="margin-top: 8px;">
+          <span class="desc-tag">Deporte</span>
+          <span class="desc-tag">Música</span>
+          <span class="desc-tag">Innovación</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-</main>
+  <!-- CANDIDATA 4 -->
+  <div class="candidata-card" data-n="4" id="card-4">
+    <div class="candidata-header">
+      <div class="candidata-info">
+        <div class="candidata-numero">4</div>
+        <div>
+          <div class="candidata-nombre">Nombre Candidata 4</div>
+          <div class="candidata-plantel"><i class="fas fa-map-marker-alt"></i> CECyTE Jalisco — Plantel Valle de Juárez</div>
+        </div>
+      </div>
+      <button class="vote-btn" id="btn-4" onclick="toggleVote(4)">
+        <span class="heart-icon" id="heart-4">🤍</span>
+        <span>Votar</span>
+        <span class="vote-count" id="count-4">0</span>
+      </button>
+    </div>
+    <div class="candidata-body">
+      <div class="candidata-gallery">
+        <div class="photo-main photo-frame">
+          <img src="" alt="Foto principal candidata 4">
+        </div>
+        <div class="photo-small photo-frame">
+          <img src="" alt="Foto 2 candidata 4">
+        </div>
+        <div class="photo-small photo-frame">
+          <img src="" alt="Foto 3 candidata 4">
+        </div>
+      </div>
+      <div class="candidata-desc">
+        <h3>Sobre la candidata</h3>
+        <p>Descripción de la candidata número 4. Resalta aquí sus cualidades de liderazgo, su visión como estudiante y el impacto que ha tenido en la comunidad del Plantel Valle de Juárez.</p>
+        <div class="desc-dato"><i class="fas fa-graduation-cap"></i><span>Grupo: 4°B</span></div>
+        <div class="desc-dato"><i class="fas fa-school"></i><span>CECyTE Jalisco — Plantel Valle de Juárez · 2026</span></div>
+        <div style="margin-top: 8px;">
+          <span class="desc-tag">Oratoria</span>
+          <span class="desc-tag">Liderazgo</span>
+          <span class="desc-tag">Tecnología</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <!-- CANDIDATA 5 -->
+  <div class="candidata-card" data-n="5" id="card-5">
+    <div class="candidata-header">
+      <div class="candidata-info">
+        <div class="candidata-numero">5</div>
+        <div>
+          <div class="candidata-nombre">Arias Diane</div>
+          <div class="candidata-plantel"><i class="fas fa-map-marker-alt"></i> CECyTE Jalisco — Plantel Valle de Juárez</div>
+        </div>
+      </div>
+      <button class="vote-btn" id="btn-5" onclick="toggleVote(5)">
+        <span class="heart-icon" id="heart-5">🤍</span>
+        <span>Votar</span>
+        <span class="vote-count" id="count-5">0</span>
+      </button>
+    </div>
+    <div class="candidata-body">
+      <div class="candidata-gallery">
+        <div class="photo-main photo-frame">
+          <img src="/cecytejimages/diane.jpeg" alt="Foto principal candidata 5">
+        </div>
+        <div class="photo-small photo-frame">
+          <img src="/cecytejimages/diane2.jpeg" alt="Foto 2 candidata 5">
+        </div>
+        <div class="photo-small photo-frame">
+          <img src="" alt="Foto 3 candidata 5">
+        </div>
+      </div>
+      <div class="candidata-desc">
+        <h3>Sobre la candidata</h3>
+        <p>Descripción de la candidata número 5. Aquí va el texto con su historia, sus sueños, su trayectoria en CECyTE y el mensaje especial que comparte con todos sus compañeros del plantel.</p>
+        <div class="desc-dato"><i class="fas fa-graduation-cap"></i><span>Grupo: 6°AB</span></div>
+        <div class="desc-dato"><i class="fas fa-school"></i><span>CECyTE Jalisco — Plantel Valle de Juárez · 2026</span></div>
+        <div style="margin-top: 8px;">
+          <span class="desc-tag">Ciencias</span>
+          <span class="desc-tag">Arte</span>
+          <span class="desc-tag">Inclusión</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== MARCADOR DE VOTOS ===== -->
+<div class="vote-scoreboard">
+  <div class="scoreboard-title">❤️ Marcador de votos en tiempo real</div>
+  <div class="scoreboard-bars" id="scoreboard"></div>
+</div>
+
+<!-- FOOTER -->
 <footer class="main-footer">
   <div class="footer-top-schedule">
-    Horario de atención en Oficinas Centrales - Lunes a Viernes 09:00 a 15:00 horas
+    Horario de atención en Oficinas Centrales — Lunes a Viernes 09:00 a 15:00 horas
   </div>
-  
   <div class="footer-columns">
     <div class="footer-col footer-col-1">
-      <img src="ruta-a-tu-logo-cecite.png" alt="CECyTE Jalisco" class="footer-logo">
+      <img src="LogoCecytej.png" alt="CECyTE Jalisco" class="footer-logo">
       <div class="footer-socials">
         <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
         <a href="#"><i class="fa-brands fa-youtube"></i></a>
         <a href="#" title="X">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width:14px; height:14px; fill:currentColor;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width:14px;height:14px;fill:currentColor;">
             <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.6 318.1 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/>
           </svg>
         </a>
         <a href="#"><i class="fa-brands fa-instagram"></i></a>
       </div>
-      <div class="footer-access-icon">
-        <i class="fa-solid fa-wheelchair"></i>
-      </div>
+      <div class="footer-access-icon"><i class="fa-solid fa-wheelchair"></i></div>
     </div>
-
     <div class="footer-col footer-col-2">
       <h3>Colegio de Estudios Científicos y Tecnológicos del Estado de Jalisco</h3>
       <p><i class="fas fa-map-marker-alt"></i> Avenida Cecytej, Jalisco</p>
       <p><i class="fas fa-mobile-alt"></i> 3336794700, 3336794701, 3336794702</p>
       <p><i class="fas fa-envelope"></i> contacto@cecytejalisco.edu.mx</p>
-      <p><i class="fas fa-envelope"></i> organointernodecontrol@cecytejalisco.edu.mx</p>
       <a href="#" class="btn-escribenos"><i class="fas fa-comment-dots"></i> Escríbenos</a>
     </div>
-
     <div class="footer-col footer-col-3">
       <a href="#">Mapa de sitio</a>
       <a href="#">Políticas de uso y privacidad</a>
       <a href="#">Acerca de este portal</a>
       <a href="#">Plataforma Nacional de Transparencia</a>
     </div>
-
     <div class="footer-col footer-col-4">
-      <img src="ruta-logo-jalisco.png" alt="Gobierno de Jalisco" class="gov-logo">
-      <img src="ruta-sello-accesibilidad.png" alt="Sitio Web Accesible" class="access-badge">
+      <img src="Jalisco.png" alt="Gobierno de Jalisco" class="gov-logo">
       <div class="footer-copyright">Gobierno de Jalisco © 2026</div>
     </div>
   </div>
-
   <div class="footer-bottom">
     <div class="footer-bottom-info">
-      <i class="fas fa-calendar-alt"></i> <span id="live-date">Cargando...</span> | 
+      <i class="fas fa-calendar-alt"></i> <span id="live-date">Cargando...</span> |
       <i class="fas fa-clock"></i> <span id="live-time">Cargando...</span>
     </div>
     <div class="footer-credits">Desarrollado por <span>Layer8Games</span></div>
@@ -522,56 +863,44 @@
 </footer>
 
 <script>
-  // ---------- LÓGICA DEL CARRUSEL ORIGINAL ----------
-  const slides = document.querySelectorAll('.slide');
-  const dots = document.querySelectorAll('.dot');
-  const captions = ['La historia de CECyTEJ', 'Oferta Académica', 'Vinculación Empresarial'];
-  let current = 0;
-  let timer;
+  // ---------- CURSOR PERSONALIZADO ----------
+  const cursor = document.getElementById('customCursor');
+  const cursorDot = document.getElementById('customCursorDot');
 
-  function showSlide(n) {
-    slides[current].classList.remove('active');
-    dots[current].classList.remove('active');
-    current = (n + slides.length) % slides.length;
-    slides[current].classList.add('active');
-    dots[current].classList.add('active');
-    document.getElementById('caption-text').textContent = captions[current];
-  }
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = `${e.clientX}px`;
+    cursor.style.top = `${e.clientY}px`;
+    cursorDot.style.left = `${e.clientX}px`;
+    cursorDot.style.top = `${e.clientY}px`;
+  });
+  document.addEventListener('mousedown', () => cursor.classList.add('click-active'));
+  document.addEventListener('mouseup', () => cursor.classList.remove('click-active'));
+  document.addEventListener('dblclick', () => {
+    document.body.classList.add('is-shaking');
+    setTimeout(() => document.body.classList.remove('is-shaking'), 150);
+  });
 
-  function changeSlide(dir) { showSlide(current + dir); resetTimer(); }
-  function goToSlide(n) { showSlide(n); resetTimer(); }
-
-  function resetTimer() { clearInterval(timer); timer = setInterval(() => changeSlide(1), 7000); }
-  resetTimer();
-
-  // ---------- LÓGICA DEL MENÚ DESPLEGABLE POR CLIC ----------
-  const navTriggers = document.querySelectorAll('.nav-trigger');
-  
-  navTriggers.forEach(trigger => {
+  // ---------- MENÚ DESPLEGABLE ----------
+  document.querySelectorAll('.nav-trigger').forEach(trigger => {
     trigger.addEventListener('click', function(e) {
-      e.preventDefault(); 
+      e.preventDefault();
       const parentLi = this.parentElement;
       const dropdown = parentLi.querySelector('.dropdown');
-      
       const isAlreadyOpen = dropdown.classList.contains('show');
-      
       document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('show'));
       document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active-menu'));
-      
-      if (!isAlreadyOpen && dropdown) {
+      if (!isAlreadyOpen) {
         dropdown.classList.add('show');
         parentLi.classList.add('active-menu');
       }
     });
   });
-
   document.querySelectorAll('.dropdown a').forEach(link => {
     link.addEventListener('click', () => {
       document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('show'));
       document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active-menu'));
     });
   });
-
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.nav-item')) {
       document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('show'));
@@ -579,135 +908,216 @@
     }
   });
 
-  // ---------- LÓGICA DEL CURSOR, TEMBLOR Y COLLAGE ----------
-  const cursor = document.getElementById('customCursor');
-  const cursorDot = document.getElementById('customCursorDot');
+  // ---------- CARRUSEL (solo si existe en la página) ----------
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+  if (slides.length > 0) {
+    const captions = ['La historia de CECyTEJ', 'Oferta Académica', 'Vinculación Empresarial'];
+    let current = 0;
+    let timer;
 
-  document.addEventListener('mousemove', (e) => {
-    cursor.style.left = `${e.clientX}px`; cursor.style.top = `${e.clientY}px`;
-    cursorDot.style.left = `${e.clientX}px`; cursorDot.style.top = `${e.clientY}px`;
-  });
+    function showSlide(n) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = (n + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+      const captionEl = document.getElementById('caption-text');
+      if (captionEl) captionEl.textContent = captions[current];
+    }
+    function changeSlide(dir) { showSlide(current + dir); resetTimer(); }
+    function goToSlide(n) { showSlide(n); resetTimer(); }
+    function resetTimer() { clearInterval(timer); timer = setInterval(() => changeSlide(1), 7000); }
+    resetTimer();
 
-  document.addEventListener('mousedown', () => cursor.classList.add('click-active'));
-  document.addEventListener('mouseup', () => cursor.classList.remove('click-active'));
+    window.changeSlide = changeSlide;
+    window.goToSlide = goToSlide;
+  }
 
-  document.addEventListener('dblclick', () => {
-    document.body.classList.add('is-shaking');
-    setTimeout(() => { document.body.classList.remove('is-shaking'); }, 150);
-  });
-
-  const collageItems = document.querySelectorAll('.collage-item');
-  collageItems.forEach(item => {
+  // ---------- COLLAGE POP ----------
+  document.querySelectorAll('.collage-item').forEach(item => {
     item.addEventListener('click', function() {
       this.classList.add('pop-active');
-      setTimeout(() => { this.classList.remove('pop-active'); }, 300);
+      setTimeout(() => this.classList.remove('pop-active'), 300);
     });
   });
 
-  // ---------- LÓGICA DEL RELOJ Y FECHA EN VIVO ----------
+  // ---------- RELOJ Y FECHA ----------
   function updateDateTime() {
     const now = new Date();
-    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    document.getElementById('live-date').textContent = now.toLocaleDateString('es-MX', dateOptions);
-    const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
-    document.getElementById('live-time').textContent = now.toLocaleTimeString('es-MX', timeOptions);
+    const dateEl = document.getElementById('live-date');
+    const timeEl = document.getElementById('live-time');
+    if (dateEl) dateEl.textContent = now.toLocaleDateString('es-MX', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    if (timeEl) timeEl.textContent = now.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
   }
   setInterval(updateDateTime, 1000);
-  updateDateTime(); 
+  updateDateTime();
 
-  // ---------- LÓGICA DEL BUSCADOR INFINITO ----------
-// ---------- CONFIGURACIÓN DE DATOS ----------
+  // ---------- BUSCADOR ----------
   const searchInput = document.querySelector('.search-input');
   const searchBtn = document.querySelector('.search-btn');
   const searchWrapper = document.querySelector('.search-btn-container');
 
-  // Crear el contenedor de sugerencias dinámicamente
-  const suggestionsBox = document.createElement('div');
-  suggestionsBox.className = 'search-suggestions';
-  searchWrapper.appendChild(suggestionsBox);
+  if (searchInput && searchBtn && searchWrapper) {
+    const suggestionsBox = document.createElement('div');
+    suggestionsBox.className = 'search-suggestions';
+    searchWrapper.appendChild(suggestionsBox);
 
-  const rutas = [
-    { label: 'Historia y Fundación', keywords: ['historia', 'fundacion', 'quienes somos', '1996'], url: 'historia.html' },
-    { label: 'Carreras Técnicas', keywords: ['carreras', 'oferta', 'academica', 'estudiar'], url: 'ofertacademica.html' },
-    { label: 'Portal de Alumnos', keywords: ['alumnos', 'calificaciones', 'estudiantes'], url: 'alumnos.html' },
-    { label: 'Vinculación y Empresas', keywords: ['proyectos', 'vinculacion', 'trabajo', 'practicas'], url: 'proyectos.html' },
-    { label: 'Transparencia', keywords: ['transparencia', 'portal nacional', 'gobierno'], url: 'portal.html' },
-    { label: 'Noticias y Prensa', keywords: ['prensa', 'noticias', 'comunicados'], url: 'comunicados.html' },
-    { label: 'Vida Estudiantil', keywords: ['robotica', 'deportes', 'cultura', 'laboratorio'], url: '#zona-tarjetas' }
-  ];
+    const rutas = [
+      { label: 'Historia y Fundación', keywords: ['historia', 'fundacion', 'quienes somos', '1996'], url: 'historia.html' },
+      { label: 'Carreras Técnicas', keywords: ['carreras', 'oferta', 'academica', 'estudiar'], url: 'ofertacademica.html' },
+      { label: 'Portal de Alumnos', keywords: ['alumnos', 'calificaciones', 'estudiantes'], url: 'alumnos.html' },
+      { label: 'Vinculación y Empresas', keywords: ['proyectos', 'vinculacion', 'trabajo', 'practicas'], url: 'proyectos.html' },
+      { label: 'Transparencia', keywords: ['transparencia', 'portal nacional', 'gobierno'], url: 'portal.html' },
+      { label: 'Noticias y Prensa', keywords: ['prensa', 'noticias', 'comunicados'], url: 'comunicados.html' },
+      { label: 'Vida Estudiantil', keywords: ['robotica', 'deportes', 'cultura', 'laboratorio'], url: '#zona-tarjetas' }
+    ];
 
-  const normalize = (t) => t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const normalize = (t) => t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-  // ---------- LÓGICA DE SUGERENCIAS ----------
-  searchInput.addEventListener('input', () => {
-    const val = normalize(searchInput.value.trim());
-    suggestionsBox.innerHTML = '';
-    
-    if (val.length < 2) {
-      suggestionsBox.style.display = 'none';
-      return;
-    }
-
-    const filtered = rutas.filter(r => 
-      normalize(r.label).includes(val) || r.keywords.some(k => normalize(k).includes(val))
-    );
-
-    if (filtered.length > 0) {
-      filtered.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'suggestion-item';
-        div.innerHTML = `<span>${item.label}</span><i class="fas fa-chevron-right"></i>`;
-        div.addEventListener('click', () => {
-          window.location.href = item.url;
+    searchInput.addEventListener('input', () => {
+      const val = normalize(searchInput.value.trim());
+      suggestionsBox.innerHTML = '';
+      if (val.length < 2) { suggestionsBox.style.display = 'none'; return; }
+      const filtered = rutas.filter(r =>
+        normalize(r.label).includes(val) || r.keywords.some(k => normalize(k).includes(val))
+      );
+      if (filtered.length > 0) {
+        filtered.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'suggestion-item';
+          div.innerHTML = `<span>${item.label}</span><i class="fas fa-chevron-right"></i>`;
+          div.addEventListener('click', () => { window.location.href = item.url; });
+          suggestionsBox.appendChild(div);
         });
-        suggestionsBox.appendChild(div);
-      });
-      suggestionsBox.style.display = 'block';
-    } else {
-      suggestionsBox.style.display = 'none';
-    }
-  });
-
-  // Cerrar sugerencias si haces clic fuera
-  document.addEventListener('click', (e) => {
-    if (!searchWrapper.contains(e.target) && e.target !== searchInput) {
-      suggestionsBox.style.display = 'none';
-    }
-  });
-
-  // ---------- LÓGICA DE BÚSQUEDA DIRECTA ----------
-  function ejecutarBusqueda() {
-    const query = normalize(searchInput.value.trim());
-    if (!query) return;
-
-    let encontrado = rutas.find(r => 
-      normalize(r.label).includes(query) || r.keywords.some(k => normalize(k).includes(query))
-    );
-
-    if (encontrado) {
-      window.location.href = encontrado.url;
-    } else {
-      // Búsqueda en texto de la página
-      const textos = document.querySelectorAll('h2, h3, p, .collage-label');
-      let local = false;
-      for (let el of textos) {
-        if (normalize(el.innerText).includes(query)) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          el.style.backgroundColor = 'rgba(245, 166, 35, 0.4)';
-          setTimeout(() => el.style.backgroundColor = 'transparent', 2000);
-          local = true;
-          break;
-        }
+        suggestionsBox.style.display = 'block';
+      } else {
+        suggestionsBox.style.display = 'none';
       }
-      if (!local) alert("No se encontraron resultados.");
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!searchWrapper.contains(e.target) && e.target !== searchInput) {
+        suggestionsBox.style.display = 'none';
+      }
+    });
+
+    function ejecutarBusqueda() {
+      const query = normalize(searchInput.value.trim());
+      if (!query) return;
+      const encontrado = rutas.find(r =>
+        normalize(r.label).includes(query) || r.keywords.some(k => normalize(k).includes(query))
+      );
+      if (encontrado) {
+        window.location.href = encontrado.url;
+      } else {
+        let local = false;
+        for (let el of document.querySelectorAll('h2, h3, p, .collage-label')) {
+          if (normalize(el.innerText || '').includes(query)) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            el.style.backgroundColor = 'rgba(245, 166, 35, 0.4)';
+            setTimeout(() => el.style.backgroundColor = 'transparent', 2000);
+            local = true;
+            break;
+          }
+        }
+        if (!local) alert("No se encontraron resultados.");
+      }
+      suggestionsBox.style.display = 'none';
+      searchInput.value = '';
     }
-    
-    suggestionsBox.style.display = 'none';
-    searchInput.value = '';
+
+    searchBtn.addEventListener('click', ejecutarBusqueda);
+    searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') ejecutarBusqueda(); });
   }
 
-  searchBtn.addEventListener('click', ejecutarBusqueda);
-  searchInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') ejecutarBusqueda(); });
+  // ---------- SISTEMA DE VOTOS ----------
+  const VOTE_KEY = 'cecyte_votes';
+  const VOTED_KEY = 'cecyte_voted_for';
+  const barColors = { 1: '#2e7d32', 2: '#f08200', 3: '#8e24aa', 4: '#0277bd', 5: '#c0392b' };
+  const names = {
+    1: 'Candidata 1 – Gdl. Norte',
+    2: 'Candidata 2 – Zapopan',
+    3: 'Candidata 3 – Tlaquepaque',
+    4: 'Candidata 4 – Tonalá',
+    5: 'Candidata 5 – El Salto'
+  };
+
+  function getVotes() {
+    try { return JSON.parse(localStorage.getItem(VOTE_KEY)) || {1:0,2:0,3:0,4:0,5:0}; }
+    catch(e) { return {1:0,2:0,3:0,4:0,5:0}; }
+  }
+  function saveVotes(v) {
+    try { localStorage.setItem(VOTE_KEY, JSON.stringify(v)); } catch(e) {}
+  }
+  function getVotedFor() {
+    try { return localStorage.getItem(VOTED_KEY); } catch(e) { return null; }
+  }
+  function saveVotedFor(n) {
+    try {
+      if (n === null) localStorage.removeItem(VOTED_KEY);
+      else localStorage.setItem(VOTED_KEY, n);
+    } catch(e) {}
+  }
+
+  function toggleVote(n) {
+    const votes = getVotes();
+    const votedFor = getVotedFor();
+    if (String(votedFor) === String(n)) {
+      votes[n] = Math.max(0, votes[n] - 1);
+      saveVotes(votes);
+      saveVotedFor(null);
+    } else {
+      if (votedFor && votedFor !== 'null') {
+        const prev = parseInt(votedFor);
+        votes[prev] = Math.max(0, votes[prev] - 1);
+        const prevBtn = document.getElementById('btn-' + prev);
+        const prevHeart = document.getElementById('heart-' + prev);
+        if (prevBtn) prevBtn.classList.remove('voted');
+        if (prevHeart) prevHeart.textContent = '🤍';
+      }
+      votes[n] = (votes[n] || 0) + 1;
+      saveVotes(votes);
+      saveVotedFor(n);
+    }
+    renderVotes();
+  }
+
+  function renderVotes() {
+    const votes = getVotes();
+    const votedFor = parseInt(getVotedFor());
+    const maxVotes = Math.max(...Object.values(votes), 1);
+    for (let i = 1; i <= 5; i++) {
+      const btn = document.getElementById('btn-' + i);
+      const heart = document.getElementById('heart-' + i);
+      const countEl = document.getElementById('count-' + i);
+      if (countEl) countEl.textContent = votes[i] || 0;
+      if (btn && heart) {
+        if (votedFor === i) { btn.classList.add('voted'); heart.textContent = '❤️'; }
+        else { btn.classList.remove('voted'); heart.textContent = '🤍'; }
+      }
+    }
+    const sb = document.getElementById('scoreboard');
+    if (sb) {
+      sb.innerHTML = '';
+      for (let i = 1; i <= 5; i++) {
+        const pct = Math.round(((votes[i] || 0) / maxVotes) * 100);
+        const row = document.createElement('div');
+        row.className = 'score-row';
+        row.innerHTML = `
+          <div class="score-name">${names[i]}</div>
+          <div class="score-bar-bg">
+            <div class="score-bar-fill" style="width:${pct}%; background:${barColors[i]};"></div>
+          </div>
+          <div class="score-num" style="color:${barColors[i]};">${votes[i] || 0}</div>
+        `;
+        sb.appendChild(row);
+      }
+    }
+  }
+
+  window.toggleVote = toggleVote;
+  renderVotes();
 </script>
 </body>
 </html>
