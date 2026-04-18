@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600&family=Kalam:wght@700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   
-  <style>
+<style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body, a, button, input { cursor: none !important; }
@@ -151,7 +151,7 @@
     .breaking-ticker span { display: inline-flex; align-items: center; gap: 12px; }
     .breaking-ticker span::before { content: '◆'; font-size: 8px; opacity: 0.7; }
 
-    /* ===== CONTENIDO PRINCIPAL ===== */
+    /* ===== ENCABEZADO DE INFRAESTRUCTURA ===== */
     .page-header {
       text-align: center;
       padding: 60px 30px 30px;
@@ -172,273 +172,85 @@
       margin: 0 auto;
     }
 
-    /* ===== TARJETAS DE CANDIDATAS ===== */
-    .candidatas-wrapper {
-      max-width: 1100px;
+    /* ===== TARJETAS DE INFRAESTRUCTURA ===== */
+    .infra-wrapper {
+      max-width: 1200px;
       margin: 0 auto;
       padding: 20px 30px 80px;
-      display: flex;
-      flex-direction: column;
-      gap: 50px;
+      display: grid;
+      /* Grid responsivo que ajusta automáticamente la cantidad de tarjetas por fila */
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 30px;
     }
 
-    .candidata-card {
+    .infra-card {
       background: #fff;
       border-radius: 16px;
-      border: 2px solid #e8e8e8;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+      border: 1px solid #e8e8e8;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
       overflow: hidden;
-      transition: box-shadow 0.3s ease;
-    }
-    .candidata-card:hover {
-      box-shadow: 0 12px 40px rgba(46,125,50,0.15);
-    }
-
-    /* Cabecera de la tarjeta */
-    .candidata-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 25px 30px 20px;
-      border-bottom: 2px solid #f0f0f0;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-    .candidata-info { display: flex; align-items: center; gap: 20px; }
-    .candidata-numero {
-      width: 55px; height: 55px; border-radius: 50%;
-      background: #2e7d32; color: #fff;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 22px; font-weight: 900;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .candidata-nombre {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 22px; font-weight: 800;
-      color: #222;
-    }
-    .candidata-plantel {
-      font-size: 13px; color: #888;
-      margin-top: 3px;
-      font-family: 'Open Sans', sans-serif;
-    }
-
-    /* Botón de votación */
-    .vote-btn {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: #fff;
-      border: 2px solid #e0e0e0;
-      border-radius: 50px;
-      padding: 10px 22px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      color: #888;
       transition: all 0.3s ease;
-      cursor: none !important;
-      flex-shrink: 0;
-    }
-    .vote-btn .heart-icon {
-      font-size: 20px;
-      transition: transform 0.3s ease;
-    }
-    .vote-btn:hover {
-      border-color: #e0245e;
-      color: #e0245e;
-    }
-    .vote-btn:hover .heart-icon { transform: scale(1.2); }
-    .vote-btn.voted {
-      background: #fff0f5;
-      border-color: #e0245e;
-      color: #e0245e;
-    }
-    .vote-btn.voted .heart-icon { animation: heart-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    @keyframes heart-pop {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.5); }
-      100% { transform: scale(1); }
-    }
-    .vote-count {
-      background: #f5f5f5;
-      border-radius: 20px;
-      padding: 2px 10px;
-      font-size: 13px;
-      font-weight: 700;
-      min-width: 28px;
-      text-align: center;
-      transition: background 0.3s;
-    }
-    .vote-btn.voted .vote-count {
-      background: #fce4ec;
-      color: #c0143c;
-    }
-
-/* Cuerpo de la tarjeta: fotos + descripción */
-    .candidata-body {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      align-items: start;
-    }
-
-    /* Galería de 3 fotos */
-    .candidata-gallery {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3px;
-      padding: 3px;
-    }
-    .candidata-gallery .photo-main {
-      grid-row: span 2;
-      border-radius: 10px 0 0 10px;
-      overflow: hidden;
-    }
-    .candidata-gallery .photo-small {
-      border-radius: 0;
-      overflow: hidden;
-    }
-    .candidata-gallery .photo-small:last-child {
-      border-radius: 0 0 10px 0;
-    }
-    .candidata-gallery .photo-small:nth-child(2) {
-      border-radius: 0 10px 0 0;
-    }
-
-    .photo-frame {
-      width: 100%;
-      position: relative;
-      overflow: hidden;
-      background: #f5f5f5;
-    }
-    .photo-frame img {
-      width: 100%;
-      height: auto;
-      object-fit: contain;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-    .photo-frame:hover img { transform: scale(1.05); }
-
-    /* Borde automático de color por candidata */
-    .candidata-card[data-n="1"] .photo-frame { outline: 3px solid #2e7d32; outline-offset: -3px; border-radius: inherit; }
-    .candidata-card[data-n="2"] .photo-frame { outline: 3px solid #f08200; outline-offset: -3px; border-radius: inherit; }
-    .candidata-card[data-n="3"] .photo-frame { outline: 3px solid #8e24aa; outline-offset: -3px; border-radius: inherit; }
-    .candidata-card[data-n="4"] .photo-frame { outline: 3px solid #0277bd; outline-offset: -3px; border-radius: inherit; }
-    .candidata-card[data-n="5"] .photo-frame { outline: 3px solid #c0392b; outline-offset: -3px; border-radius: inherit; }
-
-    /* Color del número por candidata */
-    .candidata-card[data-n="1"] .candidata-numero { background: #2e7d32; }
-    .candidata-card[data-n="2"] .candidata-numero { background: #f08200; }
-    .candidata-card[data-n="3"] .candidata-numero { background: #8e24aa; }
-    .candidata-card[data-n="4"] .candidata-numero { background: #0277bd; }
-    .candidata-card[data-n="5"] .candidata-numero { background: #c0392b; }
-
-    /* Fondo de color en la galería donde no hay imagen */
-    .candidata-card[data-n="1"] .candidata-gallery { background: #2e7d32; }
-    .candidata-card[data-n="2"] .candidata-gallery { background: #f08200; }
-    .candidata-card[data-n="3"] .candidata-gallery { background: #8e24aa; }
-    .candidata-card[data-n="4"] .candidata-gallery { background: #0277bd; }
-    .candidata-card[data-n="5"] .candidata-gallery { background: #c0392b; }
-
-    .candidata-card[data-n="1"] .photo-frame { background: #2e7d32; }
-    .candidata-card[data-n="2"] .photo-frame { background: #f08200; }
-    .candidata-card[data-n="3"] .photo-frame { background: #8e24aa; }
-    .candidata-card[data-n="4"] .photo-frame { background: #0277bd; }
-    .candidata-card[data-n="5"] .photo-frame { background: #c0392b; }
-
-    /* Descripción de la candidata */
-    .candidata-desc {
-      padding: 30px 30px 30px 25px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      gap: 14px;
     }
-    .candidata-desc h3 {
+
+    .infra-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(46, 125, 50, 0.15);
+      border-color: #2e7d32;
+    }
+
+    .infra-gallery {
+      display: flex;
+      height: 220px;
+      width: 100%;
+      background: #f5f5f5;
+      overflow: hidden;
+    }
+
+    /* El object-fit: cover autoajusta la imagen al marco sin deformarla */
+    .infra-gallery img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; 
+      transition: transform 0.5s ease;
+    }
+
+    .infra-card:hover .infra-gallery img {
+      transform: scale(1.08); /* Efecto de zoom suave al pasar el mouse */
+    }
+
+    /* Clase especial para la tarjeta que lleva 2 fotos (Baños) */
+    .infra-gallery.two-photos img {
+      width: 50%;
+      border-right: 2px solid #fff;
+    }
+    .infra-gallery.two-photos img:last-child {
+      border-right: none;
+    }
+
+    .infra-info {
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .infra-title {
       font-family: 'Montserrat', sans-serif;
-      font-size: 17px;
+      font-size: 18px;
       font-weight: 800;
-      color: #333;
+      color: #f08200; /* Naranja CECyTE */
+      margin-bottom: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
-    .candidata-desc p {
+
+    .infra-desc {
       font-size: 14px;
       color: #555;
-      line-height: 1.75;
-    }
-    .desc-dato {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 13px;
-      color: #666;
+      line-height: 1.6;
       font-family: 'Open Sans', sans-serif;
     }
-    .desc-dato i {
-      margin-top: 2px;
-      flex-shrink: 0;
-      font-size: 13px;
-    }
-    .candidata-card[data-n="1"] .desc-dato i { color: #2e7d32; }
-    .candidata-card[data-n="2"] .desc-dato i { color: #f08200; }
-    .candidata-card[data-n="3"] .desc-dato i { color: #8e24aa; }
-    .candidata-card[data-n="4"] .desc-dato i { color: #0277bd; }
-    .candidata-card[data-n="5"] .desc-dato i { color: #c0392b; }
-
-    .desc-tag {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
-      font-family: 'Montserrat', sans-serif;
-      margin: 2px 4px 2px 0;
-    }
-    .candidata-card[data-n="1"] .desc-tag { background: #e8f5e9; color: #2e7d32; }
-    .candidata-card[data-n="2"] .desc-tag { background: #fff3e0; color: #e65100; }
-    .candidata-card[data-n="3"] .desc-tag { background: #f3e5f5; color: #6a1b9a; }
-    .candidata-card[data-n="4"] .desc-tag { background: #e3f2fd; color: #01579b; }
-    .candidata-card[data-n="5"] .desc-tag { background: #ffebee; color: #b71c1c; }
-    /* Divisor entre tarjetas */
-    .card-divider {
-      height: 3px;
-      border: none;
-      background: linear-gradient(to right, transparent, #e0e0e0, transparent);
-    }
-
-    /* Marcador de votos global */
-    .vote-scoreboard {
-      max-width: 1100px;
-      margin: 0 auto 60px;
-      padding: 0 30px;
-    }
-    .scoreboard-title {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 22px;
-      font-weight: 900;
-      color: #333;
-      text-align: center;
-      margin-bottom: 25px;
-      text-transform: uppercase;
-    }
-    .scoreboard-bars { display: flex; flex-direction: column; gap: 14px; }
-    .score-row { display: flex; align-items: center; gap: 14px; }
-    .score-name { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; min-width: 160px; color: #444; }
-    .score-bar-bg { flex: 1; background: #f0f0f0; border-radius: 30px; height: 18px; overflow: hidden; }
-    .score-bar-fill { height: 100%; border-radius: 30px; transition: width 0.6s ease; min-width: 4px; }
-    .score-num { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 900; min-width: 30px; text-align: right; }
-
-    /* Colores de barras */
-    .candidata-card[data-n="1"] ~ * .fill-1,
-    .fill-1 { background: #2e7d32; }
-    .fill-2 { background: #f08200; }
-    .fill-3 { background: #8e24aa; }
-    .fill-4 { background: #0277bd; }
-    .fill-5 { background: #c0392b; }
 
     /* Estilos para las sugerencias del buscador */
     .search-suggestions {
@@ -482,15 +294,7 @@
     .footer-credits { font-size: 13px; }
     .footer-credits span { color: #f08200; font-weight: 900; }
 
-    /* Responsive */
-    @media (max-width: 900px) {
-      .candidata-body { grid-template-columns: 1fr; }
-      .candidata-gallery { grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 180px; }
-      .candidata-gallery .photo-main { grid-row: span 1; border-radius: 10px 0 0 10px; }
-      .candidata-gallery .photo-small:nth-child(2) { border-radius: 0; }
-      .candidata-gallery .photo-small:last-child { border-radius: 0 10px 10px 0; }
-      .score-name { min-width: 110px; }
-    }
+    /* Responsive General */
     @media (max-width: 768px) {
       .top-bar { padding: 10px; justify-content: center; gap: 15px; flex-direction: column;}
       .logo-jalisco-top { margin-right: 0; }
@@ -499,8 +303,84 @@
       .footer-col-1, .footer-col-2 p { align-items: center; justify-content: center;}
       .btn-escribenos { margin: 15px auto;}
       .footer-bottom { justify-content: center; text-align: center;}
-      .candidata-gallery { height: 200px; }
-      .candidata-header { flex-direction: column; align-items: flex-start; }
+    }
+
+
+    /* ===== AJOLOTE REBOTADOR (POR DETRÁS) ===== */
+    #axolotl-container {
+      position: fixed;
+      width: 150px; 
+      z-index: 1; /* <-- Capa 1 (Casi al fondo) */
+      pointer-events: none; 
+      transition: transform 0.2s ease;
+      transform: scaleX(1); 
+    }
+
+    #axolotl-img {
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2));
+    }
+
+    /* PARTÍCULAS (Estela) */
+    .trail-particle {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background-color: #2e7d32; 
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0; /* <-- Capa 0 (Detrás del ajolote) */
+      opacity: 0.5;
+      animation: fadeTrail 1s forwards;
+    }
+
+    @keyframes fadeTrail {
+      0% { transform: scale(1); opacity: 0.5; }
+      100% { transform: scale(0.2) translateY(20px); opacity: 0; }
+    }
+
+    /* BURBUJAS DE CHOQUE */
+    .crash-bubble {
+      position: fixed;
+      width: 30px;
+      height: 30px;
+      border: 2px solid #00bcd4;
+      background: rgba(0, 188, 212, 0.2);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      animation: popBubble 1.2s forwards;
+    }
+
+    @keyframes popBubble {
+      0% { transform: scale(0.5); opacity: 1; }
+      50% { transform: scale(1.5) translateY(-30px); opacity: 0.7; }
+      100% { transform: scale(2) translateY(-60px); opacity: 0; }
+    }
+
+    /* ===== ELEVAR LAS TARJETAS Y MENÚS (CORREGIDO) ===== */
+    
+    /* 1. El menú y la barra superior van HASTA ARRIBA de todo (Capa 50) */
+    .top-bar, nav {
+      position: relative;
+      z-index: 50; 
+      background-color: #fff;
+    }
+    
+    /* 2. El resto de la página va en la Capa 10 (Tapan al ajolote, pero no al menú) */
+    .page-header, .infra-card, .main-footer {
+      position: relative;
+      z-index: 10; 
+      background-color: #fff;
+    }
+    
+    .page-header {
+      background-color: transparent; 
+    }
+    
+    .main-footer {
+      background-color: #415058; 
     }
   </style>
 </head>
@@ -579,251 +459,174 @@
   </div>
 </nav>
 
-<!-- ===== BARRA ÚLTIMA HORA ===== -->
-<div class="breaking-bar">
-  <div class="breaking-label">
-    <span class="dot-live"></span>
-    Última hora · Sala de prensa
-  </div>
-  <div class="breaking-ticker-wrapper">
-    <div class="breaking-ticker" id="breakingTicker">
-      <span>Convocatoria oficial para elección de reina CECyTE Jalisco 2026 ya está abierta</span>
-      <span>Las votaciones estarán disponibles para toda la comunidad estudiantil</span>
-      <span>Participa y apoya a tu candidata favorita con tu voto</span>
-      <span>La coronación se realizará en el Plantel Valle de Juárez</span>
-      <span>Convocatoria oficial para elección de reina CECyTE Jalisco 2026 ya está abierta</span>
-      <span>Las votaciones estarán disponibles para toda la comunidad estudiantil</span>
-      <span>Participa y apoya a tu candidata favorita con tu voto</span>
-      <span>La coronación se realizará en el Plantel Valle de Juárez</span>
-    </div>
-  </div>
-</div>
-
-<!-- ===== ENCABEZADO ===== -->
 <div class="page-header">
-  <h1>Candidatas 2026</h1>
-  <p>Conoce a las representantes del Plantel Valle de Juárez y apoya a tu favorita con un corazón. ¡Tu voto cuenta!</p>
+  <h1>Infraestructura</h1>
+  <p>Conoce las instalaciones del CECyTEJ Valle de Juárez, espacios diseñados para el desarrollo académico, técnico y personal de nuestros estudiantes.</p>
 </div>
 
-<!-- ===== TARJETAS DE CANDIDATAS ===== -->
-<div class="candidatas-wrapper">
+<div class="infra-wrapper">
 
-  <!-- CANDIDATA 1 -->
-  <div class="candidata-card" data-n="1" id="card-1">
-    <div class="candidata-header">
-      <div class="candidata-info">
-        <div class="candidata-numero">Joselyn</div>
-        <div>
-          <div class="candidata-nombre"></div>
-          <div class="candidata-plantel"><i class="fas fa-map-marker-alt"></i> CECyTE Jalisco — Plantel Valle de Juárez</div>
-        </div>
-      </div>
-      <button class="vote-btn" id="btn-1" onclick="toggleVote(1)">
-        <span class="heart-icon" id="heart-1">🤍</span>
-        <span>Votar</span>
-        <span class="vote-count" id="count-1">0</span>
-      </button>
+  <div class="infra-card">
+    <div class="infra-gallery">
+      <img src="RUTA_FOTO_CANCHA.jpg" alt="Cancha Multiusos">
     </div>
-    <div class="candidata-body">
-      <div class="candidata-gallery">
-        <div class="photo-main photo-frame">
-          <img src="/cecytejimages/2a.jpeg" alt="Foto principal candidata 1">
-          <!-- src="ruta/foto1-principal.jpg" -->
-        </div>
-        <div class="photo-small photo-frame">
-          <img src="/cecytejimages/joselin.jpeg" alt="Foto 2 candidata 1">
-          <!-- src="ruta/foto1-b.jpg" -->
-        </div>
-        <div class="photo-small photo-frame">
-          <img src="/cecytejimages/joselyn.jpeg" alt="Foto 3 candidata 1">
-          <!-- src="ruta/foto1-c.jpg" -->
-        </div>
-      </div>
-      <div class="candidata-desc">
-        <h3>2A</h3>
-        <p>Joselyn es la candidata con la tematica Hindu</p>
-        <div class="desc-dato"><i class="fas fa-graduation-cap"></i><span>Grupo: 2°A</span></div>
-        <div class="desc-dato"><i class="fas fa-school"></i><span>CECyTE Jalisco — Plantel Valle de Juárez · 2026</span></div>
-        <div style="margin-top: 8px;">
-          <span class="desc-tag">Liderazgo</span>
-          <span class="desc-tag">Cultura</span>
-          <span class="desc-tag">Comunidad</span>
-        </div>
-      </div>
+    <div class="infra-info">
+      <div class="infra-title">Cancha Multiusos</div>
+      <div class="infra-desc">Espacios deportivos amplios y seguros, ideales para la práctica de diversas disciplinas, torneos estudiantiles, actividades cívicas y recreación de la comunidad escolar.</div>
     </div>
   </div>
 
-  <!-- CANDIDATA 2 -->
-  <div class="candidata-card" data-n="2" id="card-2">
-    <div class="candidata-header">
-      <div class="candidata-info">
-        <div class="candidata-numero">2</div>
-        <div>
-          <div class="candidata-nombre">Anita</div>
-          <div class="candidata-plantel"><i class="fas fa-map-marker-alt"></i> CECyTE Jalisco — Plantel Valle de Juárez</div>
-        </div>
-      </div>
-      <button class="vote-btn" id="btn-2" onclick="toggleVote(2)">
-        <span class="heart-icon" id="heart-2">🤍</span>
-        <span>Votar</span>
-        <span class="vote-count" id="count-2">0</span>
-      </button>
+  <div class="infra-card">
+    <div class="infra-gallery">
+      <img src="RUTA_FOTO_AULAS.jpg" alt="Aulas para Alumnos">
     </div>
-    <div class="candidata-body">
-      <div class="candidata-gallery">
-        <div class="photo-main photo-frame">
-          <img src="/cecytejimages/Anita.jpeg" alt="Foto principal candidata 2">
-        </div>
-        <div class="photo-small photo-frame">
-          <img src="/cecytejimages/anita3.jpeg" alt="Foto 2 candidata 2">
-        </div>
-        <div class="photo-small photo-frame">
-          <img src="/cecytejimages/anita2.jpeg" alt="Foto 3 candidata 2">
-        </div>
-      </div>
-      <div class="candidata-desc">
-        <h3>2B</h3>
-        <p>2B con la tematica cultura Griega</p>
-        <div class="desc-dato"><i class="fas fa-graduation-cap"></i><span>Grupo: 2°B</span></div>
-        <div class="desc-dato"><i class="fas fa-school"></i><span>CECyTE Jalisco — Plantel Valle de Juárez · 2026</span></div>
-        <div style="margin-top: 8px;">
-          <span class="desc-tag">Arte</span>
-          <span class="desc-tag">Emprendimiento</span>
-          <span class="desc-tag">Comunidad</span>
-        </div>
-      </div>
+    <div class="infra-info">
+      <div class="infra-title">Aulas para Alumnos</div>
+      <div class="infra-desc">Espacios de aprendizaje cómodos, bien iluminados y ventilados, diseñados para fomentar la concentración, participación y el máximo rendimiento académico de nuestros estudiantes.</div>
     </div>
   </div>
 
-  <!-- CANDIDATA 3 -->
-  <div class="candidata-card" data-n="3" id="card-3">
-    <div class="candidata-header">
-      <div class="candidata-info">
-        <div class="candidata-numero">3</div>
-        <div>
-          <div class="candidata-nombre">Ximena </div>
-          <div class="candidata-plantel"><i class="fas fa-map-marker-alt"></i> CECyTE Jalisco — Plantel Valle de Juárez</div>
-        </div>
-      </div>
-      <button class="vote-btn" id="btn-3" onclick="toggleVote(3)">
-        <span class="heart-icon" id="heart-3">🤍</span>
-        <span>Votar</span>
-        <span class="vote-count" id="count-3">0</span>
-      </button>
+  <div class="infra-card">
+    <div class="infra-gallery">
+      <img src="RUTA_FOTO_CAFETERIA.jpg" alt="Cafetería">
     </div>
-    <div class="candidata-body">
-      <div class="candidata-gallery">
-        <div class="photo-main photo-frame">
-          <img src="/cecytejimages/jimena.jpeg" alt="Foto principal candidata 3">
-        </div>
-        <div class="photo-small photo-frame">
-          <img src="/cecytejimages/ximena2.jpeg" alt="Foto 2 candidata 3">
-        </div>
-        <div class="photo-small photo-frame">
-          <img src="/cecytejimages/ximena.jpeg" alt="Foto 3 candidata 3">
-        </div>
-      </div>
-      <div class="candidata-desc">
-        <h3>4a</h3>
-        <p>tematica 4a fue selva africana .</p>
-        <div class="desc-dato"><i class="fas fa-graduation-cap"></i><span>Grupo: 4°A</span></div>
-        <div class="desc-dato"><i class="fas fa-school"></i><span>CECyTE Jalisco — Plantel Valle de Juárez · 2026</span></div>
-        <div style="margin-top: 8px;">
-          <span class="desc-tag">Deporte</span>
-          <span class="desc-tag">Música</span>
-          <span class="desc-tag">Innovación</span>
-        </div>
-      </div>
+    <div class="infra-info">
+      <div class="infra-title">Cafetería</div>
+      <div class="infra-desc">Un área de convivencia limpia y agradable donde los estudiantes pueden disfrutar de sus alimentos de manera higiénica y socializar sanamente durante sus recesos.</div>
     </div>
   </div>
 
-  <!-- CANDIDATA 4 -->
-  <div class="candidata-card" data-n="4" id="card-4">
-    <div class="candidata-header">
-      <div class="candidata-info">
-        <div class="candidata-numero">4</div>
-        <div>
-          <div class="candidata-nombre">Hillary</div>
-          <div class="candidata-plantel"><i class="fas fa-map-marker-alt"></i> CECyTE Jalisco — Plantel Valle de Juárez</div>
-        </div>
-      </div>
-      <button class="vote-btn" id="btn-4" onclick="toggleVote(4)">
-        <span class="heart-icon" id="heart-4">🤍</span>
-        <span>Votar</span>
-        <span class="vote-count" id="count-4">0</span>
-      </button>
+  <div class="infra-card">
+    <div class="infra-gallery">
+      <img src="RUTA_FOTO_COORDINADOR.jpg" alt="Oficina Coordinador">
     </div>
-    <div class="candidata-body">
-      <div class="candidata-gallery">
-        <div class="photo-main photo-frame">
-          <img src="/cecytejimages/hillary.jpeg" alt="Foto principal candidata 4">
-        </div>
-        <div class="photo-small photo-frame">
-          <img src="/cecytejimages/hillary2.jpeg" alt="Foto 2 candidata 4">
-        </div>
-      </div>
-      <div class="candidata-desc">
-        <h3>4b</h3>
-        <p>tematica vaqueros.</p>
-        <div class="desc-dato"><i class="fas fa-graduation-cap"></i><span>Grupo: 4°B</span></div>
-        <div class="desc-dato"><i class="fas fa-school"></i><span>CECyTE Jalisco — Plantel Valle de Juárez · 2026</span></div>
-        <div style="margin-top: 8px;">
-          <span class="desc-tag">Oratoria</span>
-          <span class="desc-tag">Liderazgo</span>
-          <span class="desc-tag">Tecnología</span>
-        </div>
-      </div>
+    <div class="infra-info">
+      <div class="infra-title">Oficina Coordinación</div>
+      <div class="infra-desc">Centro administrativo dedicado a la atención personalizada de alumnos y docentes, garantizando el correcto seguimiento académico y el desarrollo óptimo de los programas de estudio.</div>
     </div>
   </div>
 
-  <!-- CANDIDATA 5 -->
-  <div class="candidata-card" data-n="5" id="card-5">
-    <div class="candidata-header">
-      <div class="candidata-info">
-        <div class="candidata-numero">5</div>
-        <div>
-          <div class="candidata-nombre">Arias Diane</div>
-          <div class="candidata-plantel"><i class="fas fa-map-marker-alt"></i> CECyTE Jalisco — Plantel Valle de Juárez</div>
-        </div>
-      </div>
-      <button class="vote-btn" id="btn-5" onclick="toggleVote(5)">
-        <span class="heart-icon" id="heart-5">🤍</span>
-        <span>Votar</span>
-        <span class="vote-count" id="count-5">0</span>
-      </button>
+  <div class="infra-card">
+    <div class="infra-gallery">
+      <img src="RUTA_FOTO_COCINA.jpg" alt="Cocina para Hotelería">
     </div>
-    <div class="candidata-body">
-      <div class="candidata-gallery">
-        <div class="photo-main photo-frame">
-          <img src="/cecytejimages/diane.jpeg" alt="Foto principal candidata 5">
-        </div>
-        <div class="photo-small photo-frame">
-          <img src="/cecytejimages/diane2.jpeg" alt="Foto 2 candidata 5">
-        </div>
-        <div class="photo-small photo-frame">
-          <img src="cecytejimages/ariasdiane.jpeg" alt="Foto 3 candidata 5">
-        </div>
-      </div>
-      <div class="candidata-desc">
-        <h3>Sobre la candidata</h3>
-        <p>Descripción de la candidata número 5. Aquí va el texto con su historia, sus sueños, su trayectoria en CECyTE y el mensaje especial que comparte con todos sus compañeros del plantel.</p>
-        <div class="desc-dato"><i class="fas fa-graduation-cap"></i><span>Grupo: 6°AB</span></div>
-        <div class="desc-dato"><i class="fas fa-school"></i><span>CECyTE Jalisco — Plantel Valle de Juárez · 2026</span></div>
-        <div style="margin-top: 8px;">
-          <span class="desc-tag">Ciencias</span>
-          <span class="desc-tag">Arte</span>
-          <span class="desc-tag">Inclusión</span>
-        </div>
-      </div>
+    <div class="infra-info">
+      <div class="infra-title">Cocina para Hotelería</div>
+      <div class="infra-desc">Taller especializado que cuenta con equipamiento profesional y estándares industriales para que los alumnos de la carrera de hotelería realicen sus prácticas gastronómicas.</div>
     </div>
   </div>
 
-</div>
+  <div class="infra-card">
+    <div class="infra-gallery">
+      <img src="RUTA_FOTO_AREAS_VERDES.jpg" alt="Áreas Verdes">
+    </div>
+    <div class="infra-info">
+      <div class="infra-title">Áreas Verdes y Bancas</div>
+      <div class="infra-desc">Zonas de esparcimiento rodeadas de naturaleza y equipadas con mobiliario urbano, perfectas para el descanso, la lectura o el trabajo en equipo al aire libre.</div>
+    </div>
+  </div>
 
-<!-- ===== MARCADOR DE VOTOS ===== -->
-<div class="vote-scoreboard">
-  <div class="scoreboard-title">❤️ Marcador de votos en tiempo real</div>
-  <div class="scoreboard-bars" id="scoreboard"></div>
+  <div class="infra-card">
+    <div class="infra-gallery">
+      <img src="RUTA_FOTO_DIRECCION.jpg" alt="Dirección">
+    </div>
+    <div class="infra-info">
+      <div class="infra-title">Dirección General</div>
+      <div class="infra-desc">Sede principal de la administración del plantel, encargada de la gestión institucional, vinculación externa y atención a padres de familia para la mejora continua del centro educativo.</div>
+    </div>
+  </div>
+
+  <div class="infra-card">
+    <div class="infra-gallery">
+      <img src="RUTA_FOTO_LAVADO.jpg" alt="Área de Lavado">
+    </div>
+    <div class="infra-info">
+      <div class="infra-title">Área de Lavado (Hotelería)</div>
+      <div class="infra-desc">Zona específica, equipada y diseñada para la correcta higienización y desinfección del equipo de cocina, cumpliendo con las normativas sanitarias vigentes del sector alimentario.</div>
+    </div>
+  </div>
+
+  <div class="infra-card">
+    <div class="infra-gallery">
+      <img src="RUTA_FOTO_ALMACEN.jpg" alt="Almacén">
+    </div>
+    <div class="infra-info">
+      <div class="infra-title">Almacén</div>
+      <div class="infra-desc">Espacio logístico organizado y seguro para el resguardo de materiales didácticos, insumos operativos y herramientas necesarias para el funcionamiento diario de la institución.</div>
+    </div>
+  </div>
+
+  <div class="infra-card">
+    <div class="infra-gallery two-photos">
+      <img src="RUTA_FOTO_BANOS_1.jpg" alt="Baños Vista 1">
+      <img src="RUTA_FOTO_BANOS_2.jpg" alt="Baños Vista 2">
+    </div>
+    <div class="infra-info">
+      <div class="infra-title">Baños / Sanitarios</div>
+      <div class="infra-desc">Instalaciones sanitarias modernas, cómodas y sujetas a un estricto protocolo de limpieza constante, asegurando la higiene y el bienestar de toda nuestra comunidad escolar.</div>
+    </div>
+  </div>
+
+  <div class="infra-card">
+    <div class="infra-gallery">
+      <img src="RUTA_FOTO_SALONES.jpg" alt="Salones">
+    </div>
+    <div class="infra-info">
+      <div class="infra-title">Salones Dinámicos</div>
+      <div class="infra-desc">Salones adicionales y versátiles, adaptables para sesiones teóricas, exposiciones, dinámicas grupales o talleres extracurriculares que fortalecen la formación del alumno.</div>
+    </div>
+  </div>
+
+  <div class="infra-card">
+    <div class="infra-gallery">
+      <img src="RUTA_FOTO_SALA_GOOGLE.jpg" alt="Sala Google">
+    </div>
+    <div class="infra-info">
+      <div class="infra-title">Sala Google</div>
+      <div class="infra-desc">Un entorno tecnológico de vanguardia diseñado para la innovación, equipado con herramientas digitales colaborativas que impulsan la creatividad y las nuevas formas de aprendizaje interactivo.</div>
+    </div>
+  </div>
+
+  <div class="infra-card">
+    <div class="infra-gallery">
+      <img src="RUTA_FOTO_COMPUTO_1.jpg" alt="Salón de Cómputo 1">
+    </div>
+    <div class="infra-info">
+      <div class="infra-title">Salón de Cómputo 1</div>
+      <div class="infra-desc">Laboratorio informático principal equipado con equipos actualizados y conectividad de alta velocidad, enfocado en el desarrollo de competencias tecnológicas, ofimática y programación.</div>
+    </div>
+  </div>
+
+  <div class="infra-card">
+    <div class="infra-gallery">
+      <img src="RUTA_FOTO_PASILLOS.jpg" alt="Pasillos">
+    </div>
+    <div class="infra-info">
+      <div class="infra-title">Pasillos y Corredores</div>
+      <div class="infra-desc">Vías de tránsito amplias, techadas y bien iluminadas que conectan eficientemente las diversas áreas del plantel, garantizando una movilidad fluida y segura en todo momento.</div>
+    </div>
+  </div>
+
+  <div class="infra-card">
+    <div class="infra-gallery">
+      <img src="RUTA_FOTO_ESCALERAS.jpg" alt="Escaleras">
+    </div>
+    <div class="infra-info">
+      <div class="infra-title">Escaleras de Acceso</div>
+      <div class="infra-desc">Estructuras sólidas, antideslizantes y con señalización adecuada que facilitan la distribución segura de los alumnos entre las diferentes plantas y niveles de la infraestructura escolar.</div>
+    </div>
+  </div>
+
+  <div class="infra-card">
+    <div class="infra-gallery">
+      <img src="RUTA_FOTO_COMPUTO_2.jpg" alt="Salón de Cómputo 2">
+    </div>
+    <div class="infra-info">
+      <div class="infra-title">Salón de Cómputo 2</div>
+      <div class="infra-desc">Segundo laboratorio de sistemas, esencial para la alta demanda de prácticas tecnológicas, diseño digital y acceso a plataformas educativas por parte de nuestra comunidad estudiantil.</div>
+    </div>
+  </div>
+
 </div>
 
 <!-- FOOTER -->
@@ -1130,5 +933,97 @@
   window.toggleVote = toggleVote;
   renderVotes();
 </script>
+
+<div id="axolotl-container">
+  <img src="ajolote.png" alt="Ajolote" id="axolotl-img">
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const axolotl = document.getElementById('axolotl-container');
+    if(!axolotl) return; // Por si no carga
+    
+    let x = window.innerWidth / 2; 
+    let y = window.innerHeight / 2;
+    
+    let vx = 3; // Velocidad Horizontal
+    let vy = 2.5; // Velocidad Vertical
+    let lastTrailTime = 0;
+
+    function moveAxolotl() {
+      const rect = axolotl.getBoundingClientRect();
+      const screenW = window.innerWidth;
+      const screenH = window.innerHeight;
+
+      x += vx;
+      y += vy;
+
+      let bounced = false;
+
+      // Choques Izquierda / Derecha
+      if (x <= 0) {
+        x = 0;
+        vx = Math.abs(vx);
+        axolotl.style.transform = "scaleX(1)";
+        bounced = true;
+      } else if (x + rect.width >= screenW) {
+        x = screenW - rect.width;
+        vx = -Math.abs(vx);
+        axolotl.style.transform = "scaleX(-1)";
+        bounced = true;
+      }
+
+      // Choques Arriba / Abajo
+      if (y <= 0) {
+        y = 0;
+        vy = Math.abs(vy);
+        bounced = true;
+      } else if (y + rect.height >= screenH) {
+        y = screenH - rect.height;
+        vy = -Math.abs(vy);
+        bounced = true;
+      }
+
+      // Soltar burbuja al chocar
+      if (bounced) {
+        spawnBubble(x + rect.width / 2, y + rect.height / 2);
+      }
+
+      axolotl.style.left = x + 'px';
+      axolotl.style.top = y + 'px';
+
+      // Soltar partículas
+      if (Date.now() - lastTrailTime > 100) {
+        spawnParticle(x + rect.width / 2, y + rect.height / 2);
+        lastTrailTime = Date.now();
+      }
+
+      requestAnimationFrame(moveAxolotl);
+    }
+
+    function spawnBubble(bx, by) {
+      const bubble = document.createElement('div');
+      bubble.className = 'crash-bubble';
+      bubble.style.left = (bx - 15) + 'px';
+      bubble.style.top = (by - 15) + 'px';
+      document.body.appendChild(bubble);
+      setTimeout(() => bubble.remove(), 1200);
+    }
+
+    function spawnParticle(px, py) {
+      const particle = document.createElement('div');
+      particle.className = 'trail-particle';
+      const offsetX = (Math.random() - 0.5) * 60;
+      const offsetY = (Math.random() - 0.5) * 60;
+      particle.style.left = (px + offsetX) + 'px';
+      particle.style.top = (py + offsetY) + 'px';
+      document.body.appendChild(particle);
+      setTimeout(() => particle.remove(), 1000);
+    }
+
+    requestAnimationFrame(moveAxolotl);
+  });
+</script>
+
 </body>
 </html>

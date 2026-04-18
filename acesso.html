@@ -440,25 +440,109 @@
 
 <main class="blog-wrapper">
 
+  <!-- CECyTEJ -->
   <section class="card-item">
     <div class="card-image">
-      <img src="tu-imagen-1.jpg" alt="Descripción">
+      <img src="cecytej.png" alt="CECyTEJ">
     </div>
     <div class="card-text">
-      <h2>Título del Subtema</h2>
-      <p>Aquí va la descripción del subtema. Puedes poner todo el texto que necesites y se ajustará automáticamente al lado de la foto.</p>
+      <h2>Portal Oficial CECyTEJ</h2>
+      <p>
+        Accede al sitio oficial del Colegio de Estudios Científicos y Tecnológicos del Estado de Jalisco.
+        Aquí encontrarás información institucional, oferta académica, noticias, convocatorias y servicios para estudiantes.
+      </p>
+      <br>
+      <a href="https://cecytejalisco.edu.mx/" target="_blank" class="btn-escribenos">
+        <i class="fas fa-globe"></i> Ir al Portal
+      </a>
     </div>
   </section>
 
   <hr class="green-line-divider">
 
+  <!-- Gobierno de Jalisco -->
   <section class="card-item">
     <div class="card-image">
-      <img src="tu-imagen-2.jpg" alt="Descripción">
+      <img src="jalisco.png" alt="Gobierno de Jalisco">
     </div>
     <div class="card-text">
-      <h2>Siguiente Título</h2>
-      <p>Descripción de la siguiente sección. Este bloque lo puedes copiar y pegar cuantas veces quieras.</p>
+      <h2>Gobierno de Jalisco</h2>
+      <p>
+        Portal oficial del Gobierno del Estado de Jalisco. Aquí puedes consultar trámites, servicios,
+        programas sociales, educación, salud y noticias del estado.
+      </p>
+      <br>
+      <a href="https://www.jalisco.gob.mx/" target="_blank" class="btn-escribenos">
+        <i class="fas fa-landmark"></i> Ir al Sitio
+      </a>
+    </div>
+  </section>
+
+  <hr class="green-line-divider">
+
+  <!-- SEP -->
+  <section class="card-item">
+    <div class="card-image">
+      <img src="sep.png" alt="SEP">
+    </div>
+    <div class="card-text">
+      <h2>Secretaría de Educación Pública (SEP)</h2>
+      <p>
+        Plataforma nacional de educación en México. Aquí puedes encontrar información sobre planes de estudio,
+        certificaciones, becas, y programas educativos a nivel nacional.
+      </p>
+      <br>
+      <a href="https://www.gob.mx/sep" target="_blank" class="btn-escribenos">
+        <i class="fas fa-book"></i> Ir a la SEP
+      </a>
+    </div>
+  </section>
+
+  <hr class="green-line-divider">
+
+  <!-- Control Escolar -->
+  <section class="card-item">
+    <div class="card-image">
+      <img src="control-escolar.png" alt="Control Escolar">
+    </div>
+    <div class="card-text">
+      <h2>Sistema de Control Escolar CECyTEJ</h2>
+      <p>
+        Plataforma para estudiantes donde puedes consultar calificaciones, historial académico,
+        horarios y seguimiento escolar. Es el sistema principal de gestión académica del CECyTEJ.
+      </p>
+      <br>
+      <a href="#" target="_blank" class="btn-escribenos">
+        <i class="fas fa-user-graduate"></i> Acceder al Sistema
+      </a>
+    </div>
+  </section>
+
+  <hr class="green-line-divider">
+
+  <!-- BOTONES DE ARCHIVOS -->
+  <section class="card-item">
+    <div class="card-image">
+      <img src="documentos.png" alt="Documentos">
+    </div>
+    <div class="card-text">
+      <h2>Documentos Importantes</h2>
+      <p>
+        Descarga o visualiza documentos oficiales como reglamentos, calendarios escolares,
+        formatos o reportes en PDF y Excel.
+      </p>
+      <br>
+
+      <!-- BOTÓN PDF -->
+      <button class="btn-escribenos" onclick="abrirArchivo('documento.pdf')">
+        <i class="fas fa-file-pdf"></i> Abrir PDF
+      </button>
+
+      <!-- BOTÓN EXCEL -->
+      <button class="btn-escribenos" onclick="abrirArchivo('archivo.xlsx')">
+        <i class="fas fa-file-excel"></i> Abrir Excel
+      </button>
+
     </div>
   </section>
 
@@ -520,6 +604,12 @@
     <div class="footer-credits">Desarrollado por <span>Layer8Games</span></div>
   </div>
 </footer>
+
+<script>
+  function abrirArchivo(ruta) {
+    window.open(ruta, '_blank');
+  }
+</script>
 
 <script>
   // ---------- LÓGICA DEL CARRUSEL ORIGINAL ----------

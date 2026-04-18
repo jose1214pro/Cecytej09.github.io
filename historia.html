@@ -344,9 +344,97 @@
 .suggestion-item:hover { background: #f5f5f5; color: #2e7d32; }
 .suggestion-item i { font-size: 12px; color: #aaa; }
 .suggestion-item:last-child { border-bottom: none; }
+
+/* ===== FONDO ÉPICO ===== */
+    .epic-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -10; /* Lo mantiene detrás de todo el contenido */
+      background: linear-gradient(135deg, #09121c 0%, #132b4a 50%, #004e82 100%);
+      overflow: hidden;
+      pointer-events: none; /* Para que no interfiera con los clics de la página */
+    }
+
+    /* AJOLOTE ANIMADO POR CSS */
+    .epic-axolotl {
+      position: absolute;
+      bottom: 15%;
+      left: 10%;
+      width: 350px; /* Ajusta el tamaño de tu ajolote aquí */
+      /* Un brillo épico alrededor del ajolote */
+      filter: drop-shadow(0 0 25px rgba(0, 255, 200, 0.6));
+      animation: floatAxolotl 6s ease-in-out infinite;
+      opacity: 0.85;
+    }
+
+    /* Efecto de flotación suave */
+    @keyframes floatAxolotl {
+      0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+      50% { transform: translateY(-40px) translateX(20px) rotate(3deg) scale(1.05); }
+      100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+    }
+
+    /* BURBUJAS CSS (Sin necesidad de imágenes extra) */
+    .bubbles {
+      position: absolute;
+      bottom: -50px;
+      display: flex;
+      width: 100%;
+      justify-content: space-around;
+    }
+
+    .bubbles span {
+      position: relative;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 0 4px;
+      border-radius: 50%;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 0 10px rgba(255, 255, 255, 0.1);
+      /* La velocidad depende de la variable en el estilo en línea (--i) */
+      animation: animateBubble calc(125s / var(--i)) linear infinite;
+    }
+
+    @keyframes animateBubble {
+      0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    /* EXTRA: Hacer que los textos del encabezado destaquen sobre el fondo oscuro */
+    .page-header h1 {
+      color: #fff; /* Título principal en blanco para que resalte */
+      text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    .page-header p {
+      color: #e0e0e0;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+    }
+
   </style>
 </head>
 <body>
+
+<div class="epic-bg">
+  <div class="bubbles">
+    <span style="--i:11;"></span><span style="--i:12;"></span><span style="--i:24;"></span>
+    <span style="--i:10;"></span><span style="--i:14;"></span><span style="--i:23;"></span>
+    <span style="--i:18;"></span><span style="--i:16;"></span><span style="--i:19;"></span>
+    <span style="--i:20;"></span><span style="--i:22;"></span><span style="--i:25;"></span>
+    <span style="--i:18;"></span><span style="--i:21;"></span><span style="--i:15;"></span>
+    <span style="--i:13;"></span><span style="--i:26;"></span><span style="--i:17;"></span>
+    <span style="--i:13;"></span><span style="--i:28;"></span>
+  </div>
+  <img src="ajolote.png" alt="Ajolote Épico" class="epic-axolotl">
+</div>
 
 <div class="top-green-stripe"></div>
 
@@ -427,6 +515,7 @@
   <h1>Historia e Información</h1>
   <p>Conoce los orígenes, fundamentos y la esencia que nos convierte en una de las mejores opciones de Educación Media Superior en Jalisco.</p>
 </div>
+
 
 <main class="page-content">
 
