@@ -359,6 +359,75 @@
   }
 }
 
+/* ===== SECCIÓN ===== */
+.pdf-section {
+  max-width: 1100px;
+  margin: 60px auto;
+  text-align: center;
+}
+
+/* Título */
+.pdf-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 28px;
+  color: #2e7d32;
+  margin-bottom: 20px;
+}
+
+/* ===== CONTENEDOR ===== */
+.pdf-container {
+  width: 100%;
+  height: 80vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.pdf-container iframe {
+  position: absolute;
+
+  width: 30%;   /* aumenta para recortar lados */
+  height: 120%;  /* aumenta para recortar arriba/abajo */
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+  border: none;
+}
+
+/* ===== BOTÓN ===== */
+.pdf-actions {
+  margin-top: 15px;
+}
+
+.pdf-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #2e7d32;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.pdf-btn:hover {
+  background: #1b5e20;
+}
+
+/* ===== OPCIONAL (modo imagen) ===== */
+.pdf-image-mode {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#pdfCanvas {
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+}
+
   </style>
 </head>
 <body>
@@ -407,8 +476,8 @@
   <a href="index.html" class="home-icon" title="Inicio"><i class="fas fa-home"></i></a>
   <div class="nav-items">
     <div class="nav-item">
-      <a href="#" class="nav-trigger">Acerca de <span class="arrow">▾</span></a>
-      <div class="dropdown"><a href="historia.html">Historia e Información</a></div>
+      <a href="#" class="nav-trigger">Inicio e Historia <span class="arrow">▾</span></a>
+      <div class="dropdown"><a href="index.html">Historia e Información</a></div>
     </div>
     <div class="nav-item">
       <a href="#" class="nav-trigger">Oferta Académica <span class="arrow">▾</span></a>
@@ -441,11 +510,16 @@
 
   <section class="card-item">
     <div class="card-image">
-      <img src="/cecytejimages/luis.jpg" alt="Descripción">
+      <img src="/cecytejimages/luis.jpg" alt="Rex Team">
     </div>
     <div class="card-text">
       <h2>REX-TEAM</h2>
-      <p>Uno de nuestros grupos academicos mas exitososo en la actualidad del plantel de Cecyte jalisco,con su inovador proyecto "REX-TEAM" lograron participar y ganar el prestigioso reto steam 2025, con un viaje pagado.</p>
+      <p>
+        Uno de los grupos académicos más destacados del plantel Cecytej. 
+        El equipo REX-TEAM obtuvo el <strong>2° lugar en el Reto STEAM</strong>, 
+        demostrando su capacidad en innovación, tecnología y trabajo en equipo, 
+        posicionando al plantel como un referente en competencias académicas.
+      </p>
     </div>
   </section>
 
@@ -453,29 +527,51 @@
 
   <section class="card-item">
     <div class="card-image">
-      <img src="/cecytejimages/rodolfo.jpeg" alt="Descripción">
+      <img src="/cecytejimages/rodolfo.jpeg" alt="Equipo Pixqui">
     </div>
     <div class="card-text">
       <h2>PIXQUI</h2>
-      <p>Ganador de Codigo ciencia,con 2 premios platinos Baltazar, Alan y Emiliano.</p>
+      <p>
+        Equipo representativo de Cecytej que ha participado en concursos académicos 
+        y tecnológicos, destacando en el evento <strong>Código Ciencia</strong>, donde 
+        sus integrantes Baltazar, Alan y Emiliano obtuvieron <strong>dos premios platino</strong>, 
+        consolidándose como un grupo sobresaliente en programación e innovación.
+      </p>
     </div>
   </section>
 
   <hr class="green-line-divider">
 
-    <section class="card-item">
+  <section class="card-item">
     <div class="card-image">
-      <img src="/cecytejimages/el lord.jpg" alt="Descripción">
+      <img src="/cecytejimages/el lord.jpg" alt="Julian Robotica">
     </div>
     <div class="card-text">
-      <h2>El LORD</h2>
-      <p>Ganador de concurso de robotica jovenes down 20 22.</p>
+      <h2>JULIÁN</h2>
+      <p>
+        Estudiante del Cecytej Valle de Juárez que obtuvo el <strong>primer lugar en el 
+        Concurso de Robótica 2022</strong>, destacando por su talento, creatividad y 
+        habilidades en el desarrollo de proyectos tecnológicos y demostrando que las personas especiales puede lograr grandes cosas.
+      </p>
     </div>
   </section>
 
   <hr class="green-line-divider">
 
 </main>
+
+<section class="pdf-section">
+  <h2 class="pdf-title">
+    Lista de alumnos a graduarse de 6A, nos enorgullecen
+  </h2>
+
+  <div class="pdf-container">
+    <iframe 
+      src="6A-26A-TSM3_.pdf.pdf#toolbar=0&navpanes=0&scrollbar=0&zoom=page-width"
+      loading="lazy">
+    </iframe>
+  </div>
+</section>
 
 <footer class="main-footer">
   <div class="footer-top-schedule">
@@ -719,6 +815,28 @@
 
   searchBtn.addEventListener('click', ejecutarBusqueda);
   searchInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') ejecutarBusqueda(); });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<script>
+const url = 'ruta/tu-archivo.pdf';
+
+const canvas = document.getElementById('pdfCanvas');
+const ctx = canvas.getContext('2d');
+
+pdfjsLib.getDocument(url).promise.then(pdf => {
+  pdf.getPage(1).then(page => {
+    const viewport = page.getViewport({ scale: 2 }); // calidad HD
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+
+    page.render({
+      canvasContext: ctx,
+      viewport: viewport
+    });
+  });
+});
 </script>
 </body>
 </html>
