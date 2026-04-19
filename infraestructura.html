@@ -382,6 +382,112 @@
     .main-footer {
       background-color: #415058; 
     }
+
+    /* ===== MAPA (LO QUE TE FALTABA) ===== */
+
+.map-section {
+  max-width: 1100px;
+  margin: 50px auto 20px;
+  padding: 0 20px;
+}
+
+.map-container {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 3px solid #2e7d32;
+  box-shadow: 0 10px 40px rgba(46,125,50,0.15);
+}
+
+.mapa-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* PINES */
+.map-pin {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 13px;
+  color: #fff;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 20;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.45);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hover */
+.map-pin:hover {
+  transform: translate(-50%, -50%) scale(1.25);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+}
+
+/* Animación tipo pulso */
+.map-pin::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  animation: mapPulse 2s infinite;
+}
+
+@keyframes mapPulse {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* Tooltip */
+#map-tooltip {
+  position: absolute;
+  background: rgba(27,94,32,0.95);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: bold;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -130%);
+  transition: opacity 0.2s;
+  z-index: 30;
+}
+
+.infra-card {
+  transition: all 0.3s ease;
+  scroll-margin-top: 100px; /* evita que quede pegado arriba */
+}
+
+.infra-card.active {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+  border: 2px solid #2e7d32;
+  z-index: 5;
+}
+
+/* opcional: animación más suave */
+@keyframes pop {
+  0% { transform: scale(0.95); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1.05); }
+}
+
+.infra-card.active {
+  animation: pop 0.3s ease;
+}
+
+
   </style>
 </head>
 <body>
@@ -464,11 +570,102 @@
   <p>Conoce las instalaciones del CECyTEJ Valle de Juárez, espacios diseñados para el desarrollo académico, técnico y personal de nuestros estudiantes.</p>
 </div>
 
+<div class="map-section">
+  <div class="map-container">
+
+    <div id="map-tooltip"></div>
+
+    <img src="/cecytejimages/mapa3d.jpeg" class="mapa-img">
+
+    <!-- 1 CANCHA -->
+    <div class="map-pin" style="top:41%; left:42%; background:#2e7d32;"
+         data-label="Cancha"
+         onclick="scrollToCard('card-cancha')">1</div>
+
+    <!-- 2 AULAS -->
+    <div class="map-pin" style="top:26%; left:23%; background:#f9a825;"
+         data-label="Aulas"
+         onclick="scrollToCard('card-aulas')">2</div>
+
+    <!-- 3 CAFETERÍA -->
+    <div class="map-pin" style="top:68%; left:57%; background:#7b1fa2;"
+         data-label="Cafetería"
+         onclick="scrollToCard('card-cafeteria')">3</div>
+
+    <!-- 4 DIRECCIÓN -->
+    <div class="map-pin" style="top:49%; left:82%; background:#e65100;"
+         data-label="Dirección"
+         onclick="scrollToCard('card-direccion')">4</div>
+
+    <!-- 5 COCINA -->
+    <div class="map-pin" style="top:50%; left:27%; background:#ff8f00;"
+         data-label="Cocina"
+         onclick="scrollToCard('card-cocina')">5</div>
+
+    <!-- 6 COMPUTO 2 -->
+    <div class="map-pin" style="top:30%; left:58%; background:#388e3c;"
+         data-label="Cómputo 2"
+         onclick="scrollToCard('card-computo2')">6</div>
+
+    <!-- 7 ESCALERAS -->
+    <div class="map-pin" style="top:23%; left:50%; background:#bf360c;"
+         data-label="Escaleras"
+         onclick="scrollToCard('card-escaleras')">7</div>
+
+    <!-- 8 BAÑOS -->
+    <div class="map-pin" style="top:19%; left:45%; background:#00838f;"
+         data-label="Baños"
+         onclick="scrollToCard('card-banos')">8</div>
+
+    <!-- 9 COMPUTO 1 -->
+    <div class="map-pin" style="top:16%; left:41%; background:#6d4c41;"
+         data-label="Cómputo 1"
+         onclick="scrollToCard('card-computo1')">9</div>
+
+    <!-- 10 PASILLOS -->
+    <div class="map-pin" style="top:27%; left:54%; background:#1565c0;"
+         data-label="Pasillos"
+         onclick="scrollToCard('card-pasillos')">10</div>
+
+    <!-- 11 ALMACÉN -->
+    <div class="map-pin" style="top:26%; left:40%; background:#c2185b;"
+         data-label="Almacén"
+         onclick="scrollToCard('card-almacen')">11</div>
+
+    <!-- 12 ÁREAS VERDES -->
+    <div class="map-pin" style="top:23%; left:60%; background:#2e7d32;"
+         data-label="Áreas Verdes"
+         onclick="scrollToCard('card-verdes')">12</div>
+
+    <!-- 13 SALA GOOGLE -->
+    <div class="map-pin" style="top:30%; left:48%; background:#1976d2;"
+         data-label="Sala Google"
+         onclick="scrollToCard('card-google')">13</div>
+
+    <!-- 14 SALONES -->
+    <div class="map-pin" style="top:35%; left:35%; background:#5d4037;"
+         data-label="Salones"
+         onclick="scrollToCard('card-salones')">14</div>
+
+    <!-- 15 LAVADO -->
+    <div class="map-pin" style="top:38%; left:30%; background:#455a64;"
+         data-label="Lavado"
+         onclick="scrollToCard('card-lavado')">15</div>
+
+    <!-- 16 COORDINACIÓN -->
+    <div class="map-pin" style="top:20%; left:52%; background:#283593;"
+         data-label="Coordinación"
+         onclick="scrollToCard('card-coordinacion')">16</div>
+
+  </div>
+</div>
+
 <div class="infra-wrapper">
 
-  <div class="infra-card">
+  <!-- 1 CANCHA -->
+  <div class="infra-card" id="card-cancha">
     <div class="infra-gallery">
-      <img src="RUTA_FOTO_CANCHA.jpg" alt="Cancha Multiusos">
+      <img src="/cecytejimages/cancha deportiva.jpg" alt="Cancha Multiusos">
     </div>
     <div class="infra-info">
       <div class="infra-title">Cancha Multiusos</div>
@@ -476,9 +673,10 @@
     </div>
   </div>
 
-  <div class="infra-card">
+  <!-- 2 AULAS -->
+  <div class="infra-card" id="card-aulas">
     <div class="infra-gallery">
-      <img src="RUTA_FOTO_AULAS.jpg" alt="Aulas para Alumnos">
+      <img src="/cecytejimages/salones exterior trasero.jpg">
     </div>
     <div class="infra-info">
       <div class="infra-title">Aulas para Alumnos</div>
@@ -486,9 +684,10 @@
     </div>
   </div>
 
-  <div class="infra-card">
+  <!-- 3 CAFETERIA -->
+  <div class="infra-card" id="card-cafeteria">
     <div class="infra-gallery">
-      <img src="RUTA_FOTO_CAFETERIA.jpg" alt="Cafetería">
+      <img src="/cecytejimages/coperativa.jpg">
     </div>
     <div class="infra-info">
       <div class="infra-title">Cafetería</div>
@@ -496,39 +695,10 @@
     </div>
   </div>
 
-  <div class="infra-card">
+  <!-- 4 DIRECCION -->
+  <div class="infra-card" id="card-direccion">
     <div class="infra-gallery">
-      <img src="RUTA_FOTO_COORDINADOR.jpg" alt="Oficina Coordinador">
-    </div>
-    <div class="infra-info">
-      <div class="infra-title">Oficina Coordinación</div>
-      <div class="infra-desc">Centro administrativo dedicado a la atención personalizada de alumnos y docentes, garantizando el correcto seguimiento académico y el desarrollo óptimo de los programas de estudio.</div>
-    </div>
-  </div>
-
-  <div class="infra-card">
-    <div class="infra-gallery">
-      <img src="RUTA_FOTO_COCINA.jpg" alt="Cocina para Hotelería">
-    </div>
-    <div class="infra-info">
-      <div class="infra-title">Cocina para Hotelería</div>
-      <div class="infra-desc">Taller especializado que cuenta con equipamiento profesional y estándares industriales para que los alumnos de la carrera de hotelería realicen sus prácticas gastronómicas.</div>
-    </div>
-  </div>
-
-  <div class="infra-card">
-    <div class="infra-gallery">
-      <img src="RUTA_FOTO_AREAS_VERDES.jpg" alt="Áreas Verdes">
-    </div>
-    <div class="infra-info">
-      <div class="infra-title">Áreas Verdes y Bancas</div>
-      <div class="infra-desc">Zonas de esparcimiento rodeadas de naturaleza y equipadas con mobiliario urbano, perfectas para el descanso, la lectura o el trabajo en equipo al aire libre.</div>
-    </div>
-  </div>
-
-  <div class="infra-card">
-    <div class="infra-gallery">
-      <img src="RUTA_FOTO_DIRECCION.jpg" alt="Dirección">
+      <img src="/cecytejimages/direccion.jpg">
     </div>
     <div class="infra-info">
       <div class="infra-title">Dirección General</div>
@@ -536,90 +706,21 @@
     </div>
   </div>
 
-  <div class="infra-card">
+  <!-- 5 COCINA -->
+  <div class="infra-card" id="card-cocina">
     <div class="infra-gallery">
-      <img src="RUTA_FOTO_LAVADO.jpg" alt="Área de Lavado">
+      <img src="/cecytejimages/cocina hoteleria.jpg">
     </div>
     <div class="infra-info">
-      <div class="infra-title">Área de Lavado (Hotelería)</div>
-      <div class="infra-desc">Zona específica, equipada y diseñada para la correcta higienización y desinfección del equipo de cocina, cumpliendo con las normativas sanitarias vigentes del sector alimentario.</div>
+      <div class="infra-title">Cocina para Hotelería</div>
+      <div class="infra-desc">Taller especializado que cuenta con equipamiento profesional y estándares industriales para que los alumnos de la carrera de hotelería realicen sus prácticas gastronómicas.</div>
     </div>
   </div>
 
-  <div class="infra-card">
+  <!-- 6 COMPUTO 2 -->
+  <div class="infra-card" id="card-computo2">
     <div class="infra-gallery">
-      <img src="RUTA_FOTO_ALMACEN.jpg" alt="Almacén">
-    </div>
-    <div class="infra-info">
-      <div class="infra-title">Almacén</div>
-      <div class="infra-desc">Espacio logístico organizado y seguro para el resguardo de materiales didácticos, insumos operativos y herramientas necesarias para el funcionamiento diario de la institución.</div>
-    </div>
-  </div>
-
-  <div class="infra-card">
-    <div class="infra-gallery two-photos">
-      <img src="RUTA_FOTO_BANOS_1.jpg" alt="Baños Vista 1">
-      <img src="RUTA_FOTO_BANOS_2.jpg" alt="Baños Vista 2">
-    </div>
-    <div class="infra-info">
-      <div class="infra-title">Baños / Sanitarios</div>
-      <div class="infra-desc">Instalaciones sanitarias modernas, cómodas y sujetas a un estricto protocolo de limpieza constante, asegurando la higiene y el bienestar de toda nuestra comunidad escolar.</div>
-    </div>
-  </div>
-
-  <div class="infra-card">
-    <div class="infra-gallery">
-      <img src="RUTA_FOTO_SALONES.jpg" alt="Salones">
-    </div>
-    <div class="infra-info">
-      <div class="infra-title">Salones Dinámicos</div>
-      <div class="infra-desc">Salones adicionales y versátiles, adaptables para sesiones teóricas, exposiciones, dinámicas grupales o talleres extracurriculares que fortalecen la formación del alumno.</div>
-    </div>
-  </div>
-
-  <div class="infra-card">
-    <div class="infra-gallery">
-      <img src="RUTA_FOTO_SALA_GOOGLE.jpg" alt="Sala Google">
-    </div>
-    <div class="infra-info">
-      <div class="infra-title">Sala Google</div>
-      <div class="infra-desc">Un entorno tecnológico de vanguardia diseñado para la innovación, equipado con herramientas digitales colaborativas que impulsan la creatividad y las nuevas formas de aprendizaje interactivo.</div>
-    </div>
-  </div>
-
-  <div class="infra-card">
-    <div class="infra-gallery">
-      <img src="RUTA_FOTO_COMPUTO_1.jpg" alt="Salón de Cómputo 1">
-    </div>
-    <div class="infra-info">
-      <div class="infra-title">Salón de Cómputo 1</div>
-      <div class="infra-desc">Laboratorio informático principal equipado con equipos actualizados y conectividad de alta velocidad, enfocado en el desarrollo de competencias tecnológicas, ofimática y programación.</div>
-    </div>
-  </div>
-
-  <div class="infra-card">
-    <div class="infra-gallery">
-      <img src="RUTA_FOTO_PASILLOS.jpg" alt="Pasillos">
-    </div>
-    <div class="infra-info">
-      <div class="infra-title">Pasillos y Corredores</div>
-      <div class="infra-desc">Vías de tránsito amplias, techadas y bien iluminadas que conectan eficientemente las diversas áreas del plantel, garantizando una movilidad fluida y segura en todo momento.</div>
-    </div>
-  </div>
-
-  <div class="infra-card">
-    <div class="infra-gallery">
-      <img src="RUTA_FOTO_ESCALERAS.jpg" alt="Escaleras">
-    </div>
-    <div class="infra-info">
-      <div class="infra-title">Escaleras de Acceso</div>
-      <div class="infra-desc">Estructuras sólidas, antideslizantes y con señalización adecuada que facilitan la distribución segura de los alumnos entre las diferentes plantas y niveles de la infraestructura escolar.</div>
-    </div>
-  </div>
-
-  <div class="infra-card">
-    <div class="infra-gallery">
-      <img src="RUTA_FOTO_COMPUTO_2.jpg" alt="Salón de Cómputo 2">
+      <img src="/cecytejimages/computo 2.jpg">
     </div>
     <div class="infra-info">
       <div class="infra-title">Salón de Cómputo 2</div>
@@ -627,8 +728,118 @@
     </div>
   </div>
 
-</div>
+  <!-- 7 ESCALERAS -->
+  <div class="infra-card" id="card-escaleras">
+    <div class="infra-gallery">
+      <img src="/cecytejimages/escaleras escuela.jpg">
+    </div>
+    <div class="infra-info">
+      <div class="infra-title">Escaleras de Acceso</div>
+      <div class="infra-desc">Estructuras sólidas, antideslizantes y con señalización adecuada que facilitan la distribución segura de los alumnos entre las diferentes plantas y niveles de la infraestructura escolar.</div>
+    </div>
+  </div>
 
+  <!-- 8 BAÑOS -->
+  <div class="infra-card" id="card-banos">
+    <div class="infra-gallery two-photos">
+      <img src="/cecytejimages/escusados interior.jpg">
+      <img src="/cecytejimages/escusados.jpg">
+    </div>
+    <div class="infra-info">
+      <div class="infra-title">Baños / Sanitarios</div>
+      <div class="infra-desc">Instalaciones sanitarias modernas, cómodas y sujetas a un estricto protocolo de limpieza constante, asegurando la higiene y el bienestar de toda nuestra comunidad escolar.</div>
+    </div>
+  </div>
+
+  <!-- 9 COMPUTO 1 -->
+  <div class="infra-card" id="card-computo1">
+    <div class="infra-gallery">
+      <img src="/cecytejimages/computo 1.jpg">
+    </div>
+    <div class="infra-info">
+      <div class="infra-title">Salón de Cómputo 1</div>
+      <div class="infra-desc">Laboratorio informático principal equipado con equipos actualizados y conectividad de alta velocidad, enfocado en el desarrollo de competencias tecnológicas, ofimática y programación.</div>
+    </div>
+  </div>
+
+  <!-- 10 PASILLOS -->
+  <div class="infra-card" id="card-pasillos">
+    <div class="infra-gallery">
+      <img src="/cecytejimages/pasillo.jpeg">
+    </div>
+    <div class="infra-info">
+      <div class="infra-title">Pasillos y Corredores</div>
+      <div class="infra-desc">Vías de tránsito amplias, techadas y bien iluminadas que conectan eficientemente las diversas áreas del plantel, garantizando una movilidad fluida y segura en todo momento.</div>
+    </div>
+  </div>
+
+  <!-- 11 ALMACEN -->
+  <div class="infra-card" id="card-almacen">
+    <div class="infra-gallery">
+      <img src="/cecytejimages/Bodega.jpg">
+    </div>
+    <div class="infra-info">
+      <div class="infra-title">Almacén</div>
+      <div class="infra-desc">Espacio logístico organizado y seguro para el resguardo de materiales didácticos, insumos operativos y herramientas necesarias para el funcionamiento diario de la institución.</div>
+    </div>
+  </div>
+
+  <!-- 12 AREAS VERDES -->
+  <div class="infra-card" id="card-verdes">
+    <div class="infra-gallery">
+      <img src="/cecytejimages/pasillo2.jpeg">
+    </div>
+    <div class="infra-info">
+      <div class="infra-title">Áreas Verdes y Bancas</div>
+      <div class="infra-desc">Zonas de esparcimiento rodeadas de naturaleza y equipadas con mobiliario urbano, perfectas para el descanso, la lectura o el trabajo en equipo al aire libre.</div>
+    </div>
+  </div>
+
+  <!-- 13 GOOGLE -->
+  <div class="infra-card" id="card-google">
+    <div class="infra-gallery">
+      <img src="/cecytejimages/Aula google.jpg">
+    </div>
+    <div class="infra-info">
+      <div class="infra-title">Sala Google</div>
+      <div class="infra-desc">Un entorno tecnológico de vanguardia diseñado para la innovación, equipado con herramientas digitales colaborativas que impulsan la creatividad y las nuevas formas de aprendizaje interactivo.</div>
+    </div>
+  </div>
+
+  <!-- 14 SALONES -->
+  <div class="infra-card" id="card-salones">
+    <div class="infra-gallery">
+      <img src="/cecytejimages/salones exterior.jpg">
+    </div>
+    <div class="infra-info">
+      <div class="infra-title">Salones Dinámicos</div>
+      <div class="infra-desc">Salones adicionales y versátiles, adaptables para sesiones teóricas, exposiciones, dinámicas grupales o talleres extracurriculares que fortalecen la formación del alumno con 2 pisos de infraestructura.</div>
+    </div>
+  </div>
+
+  <!-- 15 LAVADO -->
+  <div class="infra-card" id="card-lavado">
+    <div class="infra-gallery">
+      <img src="/cecytejimages/cocina hoteleria.jpg">
+    </div>
+    <div class="infra-info">
+      <div class="infra-title">Área de Cocina (Hotelería)</div>
+      <div class="infra-desc">Zona específica, equipada y diseñada para la correcta preparacion de alimentos, higienización y desinfección del equipo de cocina, cumpliendo con las normativas sanitarias vigentes del sector alimentario.</div>
+    </div>
+  </div>
+
+  <!-- 16 COORDINACION -->
+  <div class="infra-card" id="card-coordinacion">
+    <div class="infra-gallery">
+      <img src="/cecytejimages/coordinacion.jpg">
+    </div>
+    <div class="infra-info">
+      <div class="infra-title">Oficina Coordinación</div>
+      <div class="infra-desc">Centro administrativo dedicado a la atención personalizada de alumnos y docentes, garantizando el correcto seguimiento académico y el desarrollo óptimo de los programas de estudio.</div>
+    </div>
+  </div>
+
+</div>
 <!-- FOOTER -->
 <footer class="main-footer">
   <div class="footer-top-schedule">
@@ -1025,5 +1236,31 @@
   });
 </script>
 
+<script>
+function scrollToCard(id) {
+  const target = document.getElementById(id);
+
+  if (!target) return;
+
+  // quitar selección previa
+  document.querySelectorAll('.infra-card').forEach(card => {
+    card.classList.remove('active');
+  });
+
+  // scroll suave centrado
+  target.scrollIntoView({
+    behavior: 'smooth',
+    block: 'center'
+  });
+
+  // activar efecto
+  target.classList.add('active');
+
+  // quitar efecto después de 2s
+  setTimeout(() => {
+    target.classList.remove('active');
+  }, 2000);
+}
+</script>
 </body>
 </html>
